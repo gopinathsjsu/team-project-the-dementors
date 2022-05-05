@@ -11,6 +11,8 @@ import Prestige.HotelBooking.entities.User;
 import Prestige.HotelBooking.modals.BookingDTO;
 import Prestige.HotelBooking.modals.CustomerDTO;
 
+import java.util.List;
+
 @Service
 public class BookingServiceImpl {
 	
@@ -44,5 +46,14 @@ public class BookingServiceImpl {
 		}
 		return booking;
 
+	}
+	public List<Booking> getAllHotelBooking(long hotelId){
+		List<Booking> bookings = bookingRepository.findAllBookings(hotelId);
+		return bookings;
+	}
+
+	public List<Booking> getAllBookingsOfRoom(long hotelId, long roomId){
+		List<Booking> bookings = bookingRepository.findAllBookingsOfRoom(hotelId, roomId);
+		return bookings;
 	}
 }
