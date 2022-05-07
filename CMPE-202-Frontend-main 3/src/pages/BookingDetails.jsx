@@ -33,6 +33,17 @@ function   BookingDetails(props){
     
     console.log("checkediTme",checkedItems)
     const rewardPts=50;
+    const amenties=[{
+      name:"Jacuzzi",
+      price:133,
+      id:1
+    },
+    {
+      name:"All meal",
+      price:133,
+      id:2
+    }]
+    console.log("checkedItems.includes(ele.id)",checkedItems.includes(1))
     
     
     return(
@@ -96,7 +107,41 @@ function   BookingDetails(props){
 
                 </div>
                 <div>
-                <label style={{marginLeft:10}}>
+                  {amenties.map(ele=>{
+                    return(
+                      <label style={{marginLeft:10}}>
+        <input
+          type="checkbox"
+          checked={checkedItems.includes(ele.id)}
+          //onChange={handleChange}
+          onChange={()=>{
+            //setMealsChecked(!isMealsChecked)
+            //setBreakfastChecked(!isBreakfastChecked)
+           
+            var arr=[...checkedItems]
+            if(arr.includes(ele.id)){
+              const idx=  arr.indexOf(ele.id)
+              arr.splice(idx,1)
+            }
+            else{
+              console.log("Else-->")
+            arr.push(ele.id)
+            }
+           
+            
+
+         // [setCheckedItems(...checkedItems,checkedItems.push(ele.id))]
+          setCheckedItems(arr);
+            
+          }}
+        />
+       {ele.name}
+      </label>
+
+                    )
+                  })}
+                 
+                {/* <label style={{marginLeft:10}}>
         <input
           type="checkbox"
           checked={isBreakfastChecked}
@@ -198,7 +243,7 @@ function   BookingDetails(props){
           }}
         />
         All meals
-      </label>
+      </label> */}
       <button style={{marginLeft:'5%'}} type="button" class="btn btn-primary">Apply</button>
 
                 </div>
@@ -220,7 +265,12 @@ function   BookingDetails(props){
           //onChange={handleChange}
           onChange={()=>{
            setRewardsChecked(!isRewardsChecked)
+           if(!isRewardsChecked){
            setTotalPrice(totalPrice-rewardPts)
+           }
+           else{
+             setTotalPrice(totalPrice+rewardPts)
+           }
            
           }}
         />
