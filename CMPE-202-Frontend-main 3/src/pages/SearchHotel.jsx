@@ -27,6 +27,7 @@ function SearchHotel () {
     const[place,setPlace]=React.useState("")
     console.log("type of",typeof(place),place);
     return (
+        
          
           
         <div style={{height:'100vh',backgroundImage: `url(${background})` ,backgroundSize:"cover" }}>
@@ -152,11 +153,13 @@ function SearchHotel () {
 <div style={{width:"45%",display:"flex",flexDirection:"row",justifyContent:"space-between",alignItems:"center"}}>
                      <FaPlus onClick={()=>{
                          //this.setState({room:this.state.room+1})
+                         setRoom(room+1)
                      }} size={13}/>
                     <h6 style={{marginTop:7,fontSize:10}}>{room}</h6>
                     <FaMinus
                     onClick={()=>{
                         //this.setState({room:this.state.room-1})
+                        setRoom(room-1);
                     }}
                     size={13}/> 
                     </div>

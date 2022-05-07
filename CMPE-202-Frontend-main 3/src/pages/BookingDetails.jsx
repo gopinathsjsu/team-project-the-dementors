@@ -11,6 +11,14 @@ import "../css/style.css";
 function   BookingDetails(props){
  
     const location=useLocation()
+    const place=localStorage.getItem("location")|| "";
+    const startDate=localStorage.getItem("startDate")|| "";
+    const endDate=localStorage.getItem("endDate")|| "";
+    const adult=localStorage.getItem("adult")|| "";
+    const children=localStorage.getItem("children")|| "";
+    const room=localStorage.getItem("room")|| "";
+    console.log("children-->",children)
+    const guests=parseInt(adult)+parseInt(children);
    
     const params=location.state.state.detail
     console.log("this.props---->",params)
@@ -30,30 +38,45 @@ function   BookingDetails(props){
         <div style={{marginRight:'10%',marginLeft:'10%'}}>
 
         
-        <DisplayHotelDetails  />
-        <h2 style={{marginTop:10,marginBottom:10}}>Booking Details</h2>
+        <DisplayHotelDetails  place={place} startDate={startDate} endDate={endDate} children={children} adult={adult} room={room}  />
+        <h2 style={{marginTop:10,marginBottom:10,fontWeight:"bold",fontSize:29,fontFamily:"sans-serif"}}>Let's Reserve it</h2>
         <div style={{backgroundColor:"whitesmoke"}}>
             <div style={{height:350,display:'flex',flexDirection:'row'}}>
                 <div style={{width:'70%'}}>
                 <img src={background} style={{height:'100%',width:'100%',borderRadius:5}}/>
                 </div>
                 <div style={{width:'40%',display:"flex",flexDirection:"column",paddingTop:15,paddingLeft:20}}>
-                    <h5 style={{fontStyle:"unset",fontSize:24}}>{params.name}</h5>
+                <h5 style={{fontStyle:"unset",fontSize:27,color:"#830051",fontFamily:"sans-serif",fontWeight:"bold"}}>{"Marriot"}</h5>
+
+                <h5 style={{fontStyle:"unset",fontSize:14,color:"#d96932",fontFamily:"sans-serif",fontWeight:"bold"}}>{"211 S. First Street San Jose, California 95113"}</h5>
+
                     <div style={{flexDirection:"row",display:"flex",backgroundColor:"whitesmoke",height:40}}>
-                        <p style={{fontSize:18,fontWeight:'bold'}}>Check In : </p>
-                        <p style={{fontSize:18}}>1</p>
+                        <p style={{fontSize:18,fontWeight:'bold'}}>Room Type : </p>
+                        <p style={{fontSize:18}}>{" "+params.name}</p>
                         
 
                     </div>
                     <div style={{flexDirection:"row",display:"flex",backgroundColor:"whitesmoke",height:40}}>
-                        <p style={{fontSize:18,fontWeight:'bold'}}>Check Out: </p>
-                        <p style={{fontSize:18,textAlignV:"center"}}>1</p>
+                        <p style={{fontSize:18,fontWeight:'bold'}}>Check In : </p>
+                        <p style={{fontSize:18}}>{startDate}</p>
+                        
+
+                    </div>
+                    <div style={{flexDirection:"row",display:"flex",backgroundColor:"whitesmoke",height:40}}>
+                        <p style={{fontSize:18,fontWeight:'bold'}}>Check Out : </p>
+                        <p style={{fontSize:18,textAlignV:"center"}}>{endDate}</p>
                         
 
                     </div>
                     <div style={{flexDirection:"row",display:"flex",backgroundColor:"whitesmoke",height:40}}>
                         <p style={{fontSize:18,fontWeight:'bold'}}>Room(s) : </p>
-                        <p style={{fontSize:18,textAlignV:"center"}}> {"  "+1}</p>
+                        <p style={{fontSize:18,textAlignV:"center"}}> {"  "+room}</p>
+                        
+
+                    </div>
+                    <div style={{flexDirection:"row",display:"flex",backgroundColor:"whitesmoke",height:40}}>
+                        <p style={{fontSize:18,fontWeight:'bold'}}>Guest(s) : </p>
+                        <p style={{fontSize:18,textAlignV:"center"}}> {"  "+guests}</p>
                         
 
                     </div>
@@ -63,7 +86,7 @@ function   BookingDetails(props){
 
             </div>
             <div style={{paddingLeft:10,paddingTop:15}}>
-                <div>
+                <div style={{fontWeight:"bold",fontSize:20}}>
                 Select Amenities
 
                 </div>
@@ -179,8 +202,8 @@ function   BookingDetails(props){
                
             </div>
             <div className="center">
-                <div style={{width:"70%",display:"flex"}}>
-                <button type="button" class="btn btn-primary">Book Room(s)</button>
+                <div style={{width:"70%",display:"flex",marginLeft:10}}>
+                <button type="button" class="btn btn-primary">Checkout</button>
                 </div>
                 <div style={{width:"30%",display:"flex"}}>
                 <p style={{fontWeight:"bold",fontSize:20}}>Total charges : </p>

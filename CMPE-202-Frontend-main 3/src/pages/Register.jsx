@@ -41,6 +41,12 @@ export default class Register extends Component{
           console.log("Err",err)
         }
         console.log("data--->",data)
+        alert("Registration successful")
+        setTimeout(()=>{
+          this.props.history.push("/")
+
+        },1000)
+       
         //call registartion api
 
       })

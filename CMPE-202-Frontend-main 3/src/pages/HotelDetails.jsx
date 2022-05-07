@@ -24,6 +24,14 @@ import { useHistory } from "react-router-dom";
 // }
 function HotelDetails(){
     const history=useHistory()
+    console.log("location-->",localStorage.getItem("location"))
+    const place=localStorage.getItem("location")|| "";
+    const startDate=localStorage.getItem("startDate")|| "";
+    const endDate=localStorage.getItem("endDate")|| "";
+    const adult=localStorage.getItem("adult")|| "";
+    const children=localStorage.getItem("children")|| "";
+    const room=localStorage.getItem("room")|| "";
+    console.log("children-->",children)
     const hotelData=[
         {
             "name":"One Bed",
@@ -53,12 +61,13 @@ function HotelDetails(){
     return(
         <div style={{height:'100vh',backgroundColor:"#F5F5F5"}}>
         <NavBarComponent/>
-        <h2>Select a room</h2>
-        <div style={{marginRight:'10%',marginLeft:'10%'}}>
+        
+        <div style={{marginRight:'10%',marginLeft:'10%',marginTop:10}}>
 
         
-        <DisplayHotelDetails  />
+        <DisplayHotelDetails  startDate={startDate} endDate={endDate} children={children} adult={adult} room={room}  />
         </div>
+        <h2 style={{marginLeft:'5%'}}>Select a room</h2>
         {hotelData.map(ele=>{
                 return(
                     <div style={{height:120,backgroundColor:'white',borderBottomWidth:1,borderRadius:10,marginLeft:'10%',marginRight:'10%'}}>

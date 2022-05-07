@@ -4,6 +4,20 @@ import background from "../assets/loginBg.jpeg";
 import UserPool  from "../UserPool";
 import {AuthenticationDetails, CognitoUser} from 'amazon-cognito-identity-js'
 //import AWS from 'aws-sd'
+import ReactLoading from 'react-loading';
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Backdrop from '@material-ui/core/Backdrop'
+import {makeStyles} from '@material-ui/core'
+import LoadingOverlay from 'react-loading-overlay';
+
+const useStyles=makeStyles((theme)=>({
+    backdrop:{
+        zIndex:theme.zIndex.drawer+1,
+        color:"#fff"
+    }
+
+}));
+
 
 export default class Login extends Component {
     constructor(){
@@ -11,13 +25,19 @@ export default class Login extends Component {
         this.state={
             email:"",
             password:"",
-            navigate:false
+            navigate:false,
+            loading:false
         }
     }
+    
 componentDidUpdate(prevState){
     console.log("navigate state--->",prevState)
     if(this.state.navigate!=prevState.navigate && this.state.navigate){
+        //localStorage.setItem("userName",place);
         console.log("navigate")
+        // alert("Registartion successfull")
+
+        //callLoginAPi
         this.props.history.push("/search")
     }
 }
@@ -26,6 +46,7 @@ _changeState(){
 }
 
     onSubmit=(event)=>{
+       
         console.log("event",this.state.email,this.state.password)
         //event.preventDefault();
         //UserPool.signi'
@@ -80,9 +101,10 @@ _changeState(){
        
         return (
             <div style={{height:'100vh',display:'flex',justifyContent:'center',alignItems:'center',backgroundImage: `url(${background})` ,backgroundSize:"cover" }}>
+           
             <form  style={{paddingTop:'10%',paddingBottom:"10%", borderRadius:10,backgroundColor:'white',paddingLeft:"5%",paddingRight:"5%"}}>
                 <h3 style={{textAlign:'center',fontWeight:"bold",fontSize:28}}>Login</h3>
-
+               
                 <div style={{flexDirection:"row",display:"flex",backgroundColor:"lightgray",width:300,borderRadius:6,alignItems:"center",paddingLeft:10}} className="form-group">
                     <FaUser size={10} color={"gray"}/>
                    
@@ -111,11 +133,15 @@ _changeState(){
                 <button
                 onClick={()=>{
                     this.onSubmit()
+                    this.setState({loading:true})
                 }}
                 style={{alignSelf:'center',marginTop:10,width:'70%'}} type="button" className="btn btn-primary btn-block">Submit</button>
                </div>
                 
             </form>
+{/* 
+            <LoadingOverlay active={this.state.loading} spinner size={40}/> */}
+           
             </div>
         );
     }
