@@ -29,7 +29,10 @@ function   BookingDetails(props){
     const[isMealsChecked,setMealsChecked]=React.useState(false);
     const[checkedItems,setCheckedItems]=React.useState([])
     const[isRewardsChecked,setRewardsChecked]=React.useState(false)
+    const[totalPrice,setTotalPrice]=React.useState(150)
+    
     console.log("checkediTme",checkedItems)
+    const rewardPts=50;
     
     
     return(
@@ -204,7 +207,8 @@ function   BookingDetails(props){
                
             </div>
             <div style={{backgroundColor:"lightgray",height:1,marginTop:'2%',marginBottom:"2%"}}/>
-            <div className="">
+            <div style={{display:"flex"}}>
+              <div style={{width:"70%"}}>
                 
                
                 <label style={{fontFamily:"sans-serif",fontWeight:"bold",marginLeft:10}}>
@@ -216,20 +220,30 @@ function   BookingDetails(props){
           //onChange={handleChange}
           onChange={()=>{
            setRewardsChecked(!isRewardsChecked)
+           setTotalPrice(totalPrice-rewardPts)
            
           }}
         />
-         Rewards 
+         Apply Rewards 
         </label>
+        <div style={{fontFamily:"sans-serif",fontWeight:"bold",marginLeft:'4%'}}>
+         {"Total Price : "+totalPrice}
+        </div>
        
 
                 
               
             </div>
+            <div style={{width:'30%',display:"flex",justifyContent:"flex-end",marginBottom:5,marginRight:"2%"}}>
+            <button style={{fontWeight:"bold"}} type="button" class="btn btn-warning">Checkout</button>
+
+
+            </div>
 
         </div>
 
        
+        </div>
         </div>
         </div>
         </body>
