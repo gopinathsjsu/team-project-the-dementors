@@ -15,6 +15,7 @@ import HotelList from './pages/HotelList';
 import HotelDetails from './pages/HotelDetails';
 import { Component } from 'react';
 import BookingDetails from './pages/BookingDetails';
+import Cancel from './pages/Cancel';
 //function AppRoutes() {
 //   const routes = useRoutes(
 //     [
@@ -44,6 +45,7 @@ function App() {
        <Route exact path={"/hotellist"} component={HotelList}/>
        <Route exact path={"/hoteldetails"} component={HotelDetails}/>
        <Route exact path={"/bookingdetails"} component={BookingDetails}/>
+       <Route exact path={"/cancel"} component={Cancel}/>
       
 
      </Switch>

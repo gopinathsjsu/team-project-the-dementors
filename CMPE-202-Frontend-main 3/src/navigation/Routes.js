@@ -20,7 +20,6 @@ import Register from "../pages/Register";
               <Switch>
                   <Route path="/login" component={Login}>
                       <Route path="/register" component={Register}/>
-
                   </Route>
               </Switch>
           </Router>
