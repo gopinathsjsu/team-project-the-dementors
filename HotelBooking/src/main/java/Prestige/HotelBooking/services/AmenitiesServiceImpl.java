@@ -66,4 +66,9 @@ public class AmenitiesServiceImpl {
         Amenities allAmenities = amenitiesRepository.findByRoom(hotelId,roomId);
         return allAmenities;
     }
+
+    public Amenities findHotelAmenityPrice(long hotelId){
+        Amenities allAmenities = amenitiesRepository.findByHotel(hotelId);
+        return allAmenities;
+    }
 }

@@ -1,12 +1,11 @@
 package Prestige.HotelBooking.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import Prestige.HotelBooking.dao.EmployeeRepository;
 import Prestige.HotelBooking.entities.Employee;
 import Prestige.HotelBooking.entities.User;
 import Prestige.HotelBooking.modals.EmployeeDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeServiceImpl {

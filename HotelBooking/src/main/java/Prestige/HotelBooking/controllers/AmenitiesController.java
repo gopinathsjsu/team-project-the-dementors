@@ -13,10 +13,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
+import static Prestige.HotelBooking.commons.Amenity.getEnum;
 
 @RestController
 public class AmenitiesController {
@@ -29,17 +35,25 @@ public class AmenitiesController {
 
     @GetMapping("/getAmenities")
     @ResponseBody
-    public ResponseEntity<?> getAmenities(@RequestParam(required = false, name = "hotel") long hotelId, @RequestParam(required = false, name = "room") long roomId){
-          if (hotelId!=0 && roomId!=0){
-              List<String> amenities = amenitiesService.findRoomAmenityList(hotelId,roomId);
+    public ResponseEntity<?> getAmenities(@RequestParam(required = false, name = "hotelId") String hotelId, @RequestParam(required = false, name = "roomId") String roomId){
+        long hId=0,rId=0;
+        if (hotelId!=null){
+             hId = Long.parseLong(hotelId);
+        }
+        if (roomId!=null) {
+            rId = Long.parseLong(roomId);
+        }
+
+          if (hId!=0 && rId!=0){
+              List<String> amenities = amenitiesService.findRoomAmenityList(hId,rId);
               if (amenities.size()>0){
                   return new ResponseEntity<List<String>> (amenities, HttpStatus.OK);
 
               }else{
                   return new ResponseEntity<String>("No amenities found for the room " , HttpStatus.BAD_REQUEST);
               }
-          }else if (hotelId!=0){
-              List<String> amenities = amenitiesService.findHotelAmenity(hotelId);
+          }else if (hId!=0){
+              List<String> amenities = amenitiesService.findHotelAmenity(hId);
               if (amenities.size()>0){
                   return new ResponseEntity<List<String>> (amenities, HttpStatus.OK);
 
@@ -52,13 +66,23 @@ public class AmenitiesController {
     }
     @GetMapping("/getAmenitiesPrice")
     @ResponseBody
-    public ResponseEntity<?> getAmenitiesPrice(@RequestParam(name = "hotel") long hotelId, @RequestParam(name = "room")long roomId, @RequestParam(name = "fromDate") Date fromDate,@RequestParam(name = "toDate") Date toDate, @RequestParam(name = "amenities") List<String> am){
-        Amenities allAmenities = amenitiesService.findRoomAmenity(hotelId,roomId);
+    public ResponseEntity<?> getAmenitiesPrice(@RequestParam(name = "hotelId") String hotelId, @RequestParam(required=false, name = "roomId")String roomId, @RequestParam(name = "fromDate") String fromDate,@RequestParam(name = "toDate") String toDate, @RequestParam(name = "amenities") List<String> am) throws ParseException {
+        long hId=0,rId=0;
+        if (hotelId!=null){
+            hId = Long.parseLong(hotelId);
+        }
+        if (roomId!=null) {
+            rId = Long.parseLong(roomId);
+        }
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+        Date fDate = formatter.parse(fromDate);
+        Date tDate = formatter.parse(toDate);
+        Amenities allAmenities = amenitiesService.findHotelAmenityPrice(hId);
         if (am.size()>0){
-            Float price  = roomService.getRoomDetails(roomId).getRoomPrice();
+            Float price  = roomService.getRoomDetails(rId).getRoomPrice();
             Float amenitiesPrice = Float.valueOf(0);
             for (String i : am){
-                switch (Amenity.valueOf(i)){
+                switch (getEnum(i)){
                     case BREAKFAST: amenitiesPrice = amenitiesPrice+allAmenities.getBreakfast();
                                     break;
                     case GYM: amenitiesPrice = amenitiesPrice+allAmenities.getGym();
@@ -73,10 +97,14 @@ public class AmenitiesController {
                         break;
                 }
             }
-            if ((Common.isWeekend(fromDate) || Common.isHoliday(fromDate)) || (Common.isWeekend(toDate) || Common.isHoliday(toDate))){
-                price *= Common.PRICEINFLATION* ChronoUnit.DAYS.between((Temporal) fromDate, (Temporal) toDate);
+            long diffInMillies = Math.abs(tDate.getTime() - fDate.getTime());
+            long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+            if ((Common.isWeekend(formatter.parse(fromDate)) || Common.isHoliday(formatter.parse(fromDate))) || (Common.isWeekend(formatter.parse(toDate)) || Common.isHoliday(formatter.parse(toDate)))){
+                //price *= Common.PRICEINFLATION* ChronoUnit.DAYS.between((Temporal) formatter.parse(fromDate), (Temporal) formatter.parse(toDate));
+                price *= Common.PRICEINFLATION* diff;
             }else{
-                price *= ChronoUnit.DAYS.between((Temporal) fromDate, (Temporal) toDate);
+                //price *= ChronoUnit.DAYS.between((Temporal) formatter.parse(fromDate), (Temporal) formatter.parse(toDate));
+                price *= diff;
 
             }
             Float totalPrice = price + amenitiesPrice;
@@ -87,6 +115,7 @@ public class AmenitiesController {
             return new ResponseEntity<String>("Error calculating the price " , HttpStatus.BAD_REQUEST);
         }
     }
+
 
 
 }
