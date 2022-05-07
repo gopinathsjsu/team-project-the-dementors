@@ -31,6 +31,14 @@ public class Booking {
 	@ManyToOne
     @JoinColumn(name="cust_id", referencedColumnName = "customerId")
 	private Customer customer;
+
+	@ManyToOne
+	@JoinColumn(name="hotel_id", referencedColumnName = "hotelId")
+	private Hotel hotel;
+
+	@ManyToOne
+	@JoinColumn(name="room_id", referencedColumnName = "roomId")
+	private Room room;
 	
 
 	public Customer getCustomer() {
@@ -64,7 +72,20 @@ public class Booking {
 	public void setBookingToDate(Date bookingToDate) {
 		this.bookingToDate = bookingToDate;
 	}
-	
-	
 
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
 }

@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 public class HotelController {
@@ -33,14 +37,14 @@ public class HotelController {
     @GetMapping("/getHotels")
     @ResponseBody
     public ResponseEntity<?> fetchHotels(@RequestParam(required = false, name = "city") String cityName, @RequestParam(required = false, name = "state") String stateName){
-        if (!cityName.isEmpty()){
+        if (cityName != null){
            List<Hotel> hotels =  hotelService.findHotelByCity(cityName);
            if (hotels.size()>0){
                 return new ResponseEntity<List<Hotel>> (hotels, HttpStatus.OK);
             }else{
                return new ResponseEntity<String>("No hotels found in the city " + cityName, HttpStatus.BAD_REQUEST);
            }
-        }else if  (!stateName.isEmpty()){
+        }else if  (stateName != null){
             List<Hotel> hotels =  hotelService.findHotelByState(stateName);
             if (hotels.size()>0){
                 return new ResponseEntity<List<Hotel>> (hotels, HttpStatus.OK);
@@ -54,8 +58,8 @@ public class HotelController {
 
     @GetMapping("/getHotelBooking")
     @ResponseBody
-    public ResponseEntity<?> getHotelBookings(@RequestParam(name = "hotelId") long hotelId){
-        List<Booking> bookings = bookingService.getAllHotelBooking(hotelId);
+    public ResponseEntity<?> getHotelBookings(@RequestParam(name = "hotelId") String hotelId){
+        List<Booking> bookings = bookingService.getAllHotelBooking(Long.parseLong(hotelId));
         if (bookings.size()>0){
             return new ResponseEntity<List<Booking>> (bookings, HttpStatus.OK);
         }
@@ -64,12 +68,13 @@ public class HotelController {
 
     @GetMapping("/getHotelRooms")
     @ResponseBody
-    public ResponseEntity<?> getHotelRooms(@RequestParam(name = "hotelId") long hotelId, @RequestParam(name = "fromData") Date fromDate, @RequestParam(name = "toDate") Date toDate){
-        List<Room> rooms = roomService.getAllAvailableRooms(hotelId);
+    public ResponseEntity<?> getHotelRooms(@RequestParam(name = "hotelId") String hotelId, @RequestParam(name = "fromData") String fromDate, @RequestParam(name = "toDate") String toDate) throws ParseException {
+        List<Room> rooms = roomService.getAllAvailableRooms(Long.parseLong(hotelId));
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
         if (rooms.size()>0){
-            if ((Common.isWeekend(fromDate) || Common.isHoliday(fromDate)) || (Common.isWeekend(toDate) || Common.isHoliday(toDate))){
+            if ((Common.isWeekend(formatter.parse(fromDate)) || Common.isHoliday(formatter.parse(fromDate))) || (Common.isWeekend(formatter.parse(toDate)) || Common.isHoliday(formatter.parse(toDate)))){
                 for (Room i: rooms){
-                    i.setRoomPrice(i.getRoomPrice()*Common.PRICEINFLATION);
+                    i.setRoomPrice((i.getRoomPrice()*Common.PRICEINFLATION)+i.getRoomPrice());
 
                 }
             }
