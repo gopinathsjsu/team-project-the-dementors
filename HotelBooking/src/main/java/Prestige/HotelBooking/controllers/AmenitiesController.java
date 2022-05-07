@@ -5,19 +5,18 @@ import Prestige.HotelBooking.commons.Common;
 import Prestige.HotelBooking.entities.Amenities;
 import Prestige.HotelBooking.services.AmenitiesServiceImpl;
 import Prestige.HotelBooking.services.RoomServiceImpl;
+import com.sun.net.httpserver.Headers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -33,6 +32,7 @@ public class AmenitiesController {
     @Autowired
     private RoomServiceImpl roomService;
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/getAmenities")
     @ResponseBody
     public ResponseEntity<?> getAmenities(@RequestParam(required = false, name = "hotelId") String hotelId, @RequestParam(required = false, name = "roomId") String roomId){
@@ -64,6 +64,8 @@ public class AmenitiesController {
           }
           return new ResponseEntity<String>("No amenities found for the hotel " , HttpStatus.BAD_REQUEST);
     }
+
+    @CrossOrigin(origins = "*")
     @GetMapping("/getAmenitiesPrice")
     @ResponseBody
     public ResponseEntity<?> getAmenitiesPrice(@RequestParam(name = "hotelId") String hotelId, @RequestParam(required=false, name = "roomId")String roomId, @RequestParam(name = "fromDate") String fromDate,@RequestParam(name = "toDate") String toDate, @RequestParam(name = "amenities") List<String> am) throws ParseException {
@@ -101,10 +103,10 @@ public class AmenitiesController {
             long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
             if ((Common.isWeekend(formatter.parse(fromDate)) || Common.isHoliday(formatter.parse(fromDate))) || (Common.isWeekend(formatter.parse(toDate)) || Common.isHoliday(formatter.parse(toDate)))){
                 //price *= Common.PRICEINFLATION* ChronoUnit.DAYS.between((Temporal) formatter.parse(fromDate), (Temporal) formatter.parse(toDate));
-                price *= Common.PRICEINFLATION* diff;
+                price = ((price*Common.PRICEINFLATION)+price)* diff;
             }else{
                 //price *= ChronoUnit.DAYS.between((Temporal) formatter.parse(fromDate), (Temporal) formatter.parse(toDate));
-                price *= diff;
+                price = price*diff;
 
             }
             Float totalPrice = price + amenitiesPrice;

@@ -5,10 +5,7 @@ import Prestige.HotelBooking.services.BookingServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,6 +18,7 @@ public class RoomController {
     @Autowired
     private BookingServiceImpl bookingService;
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/checkRoomAvailability")
     @ResponseBody
     public ResponseEntity<?> checkRoomAvailability(@RequestParam(name = "fromDate") String fDate, @RequestParam(name = "toDate") String tDate,@RequestParam(name = "hotelId") String hotelId,@RequestParam(name = "roomId") String roomId) throws ParseException {
