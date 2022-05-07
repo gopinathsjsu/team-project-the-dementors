@@ -10,10 +10,7 @@ import Prestige.HotelBooking.services.RoomServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,6 +31,7 @@ public class HotelController {
     @Autowired
     private RoomServiceImpl roomService;
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/getHotels")
     @ResponseBody
     public ResponseEntity<?> fetchHotels(@RequestParam(required = false, name = "city") String cityName, @RequestParam(required = false, name = "state") String stateName){
@@ -56,6 +54,7 @@ public class HotelController {
         return new ResponseEntity<List<Hotel>> (hotels, HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/getHotelBooking")
     @ResponseBody
     public ResponseEntity<?> getHotelBookings(@RequestParam(name = "hotelId") String hotelId){
@@ -66,6 +65,7 @@ public class HotelController {
             return new ResponseEntity<String>("No bookings found for the hotel", HttpStatus.OK);
     }
 
+    @CrossOrigin(origins = "*")
     @GetMapping("/getHotelRooms")
     @ResponseBody
     public ResponseEntity<?> getHotelRooms(@RequestParam(name = "hotelId") String hotelId, @RequestParam(name = "fromData") String fromDate, @RequestParam(name = "toDate") String toDate) throws ParseException {

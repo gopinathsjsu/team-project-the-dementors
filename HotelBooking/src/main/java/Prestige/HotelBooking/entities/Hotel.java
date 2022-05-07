@@ -23,6 +23,7 @@ public class Hotel {
     private String hotelCountry;
     private int hotelZipCode;
     private float startingPrice;
+    private byte[] image;
 
     public long getHotelId() {
         return hotelId;
@@ -94,5 +95,13 @@ public class Hotel {
 
     public void setStartingPrice(float startingPrice) {
         this.startingPrice = startingPrice;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }
