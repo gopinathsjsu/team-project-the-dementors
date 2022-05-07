@@ -38,6 +38,7 @@ componentDidUpdate(prevState){
         // alert("Registartion successfull")
 
         //callLoginAPi
+        //get userId,username,type
         this.props.history.push("/search")
     }
 }

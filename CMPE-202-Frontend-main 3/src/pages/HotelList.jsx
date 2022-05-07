@@ -5,63 +5,78 @@ import history from '../navigation/history'
 import { Button } from "bootstrap";
 import {useHistory,useLocation} from 'react-router-dom'
 import DisplayHotelDetails from "../components/DisplayHotelDetails";
+import axios from "axios";
 
 
 
 
 function HotelList(props){
     const location=useLocation()
-    console.log("location-->",localStorage.getItem("location"))
+    // console.log("location-->",localStorage.getItem("location"))
     const place=localStorage.getItem("location")|| "";
     const startDate=localStorage.getItem("startDate")|| "";
     const endDate=localStorage.getItem("endDate")|| "";
     const adult=localStorage.getItem("adult")|| "";
     const children=localStorage.getItem("children")|| "";
     const room=localStorage.getItem("room")|| "";
-    console.log("children-->",children)
+    
+    // console.log("children-->",children)
     
 
     const [isLoading, setIsLoading] = React.useState(true);
     const [data, setData] = React.useState([]);
   
     React.useEffect(() => {
-      const url = "https://randomuser.me/api/?results=15";
-      fetch(url)
-        .then((response) => response.json())
-        .then((json) => setData(json['results']))
-        .catch((error) => console.log(error));
+        const place=localStorage.getItem("location")|| "";
+        
+      const url = `https://cors-anywhere.herokuapp.com/http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getHotels?city=${place}`;
+     axios.get(url, {headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+
+        
+      }}).then(res=>{
+         console.log("response--->",res)
+         if(res && res.data && res.data.length>0){
+            //  console.log("res.data",res.data)
+             setData(res.data);
+
+         }
+     }).catch(err=>{
+         console.log("Err-->",err)
+     })
+    
     }, []);
+    // const url1="https://cors-anywhere.herokuapp.com/http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getHotelRooms?hotelId=1&fromData=2022-02-02&toDate=2022-02-04"
   
-    React.useEffect(() => {
-      if (data.length !== 0) {
-        setIsLoading(false);
-      }
-      console.log(data);
-    }, [data]);
+    // axios.get(url1, {headers: {
+    //     'Access-Control-Allow-Origin': '*',
+    //     'Content-Type': 'application/json'
+
+        
+    //   }}).then(res=>{
+    //      console.log("response hotel--->",res)
+    //      if(res && res.data && res.data.length>0){
+    //         //  console.log("res.data",res.data)
+    //          setData(res.data);
+
+    //      }
+    //  }).catch(err=>{
+    //      console.log("Err-->",err)
+    //  })
+    
+    // }, []);
+   
+    // React.useEffect(() => {
+    //   if (data.length !== 0) {
+    //     setIsLoading(false);
+    //   }
+    //   console.log(data);
+    // }, [data]);
   
     let history=useHistory()
-    console.log("data-->",data,props)
-    const list=[{
-        "name":"Marriot Hotel",
-        "address":"211 S. First Street San Jose, California 95113"
-    },
-    {
-        "name":"Marriot Hotel",
-        "address":"211 S. First Street San Jose, California 95113"
-    },
-    {
-        "name":"Marriot Hotel",
-        "address":"211 S. First Street San Jose, California 95113"
-    },
-    {
-        "name":"Marriot Hotel",
-        "address":"211 S. First Street San Jose, California 95113"
-    },
-    {
-        "name":"Marriot Hotel",
-        "address":"211 S. First Street San Jose, California 95113"
-    },
-];
+    //console.log("data-->",data,props)
+    
 
     return(
         <div style={{height:'100vh',backgroundColor:"#F5F5F5"}}>
@@ -70,19 +85,31 @@ function HotelList(props){
         <div style={{height:50}}></div>
         <div style={{marginRight:'10%',marginLeft:'10%'}}>
             <h2>Select a hotel</h2>
-            {list.map(ele=>{
+            {data.length>0 ?data.map(ele=>{
                 return(
                     <div style={{height:150,backgroundColor:'white',borderBottomWidth:1,borderRadius:10}}>
                     <div className="subClass" style={{height:100,display:'flex',flexDirection:'row',marginTop:20,borderBottomColor:"lightgray"}}>
                         <div style={{width:"20%"}}>
                             <img src={background} style={{height:'100%',width:'100%',borderRadius:5}}/>
                             </div>
-                            <div style={{display:'flex',flexDirection:'column',paddingLeft:'10%' ,justifyContent:'center'}}>
-                                <h4>{ele.name}</h4>
-                                <p>{ele.address}</p>
+                            <div style={{display:'flex',flexDirection:'column',paddingLeft:'10%' ,justifyContent:'center',width:"60%"}}>
+                                <h4>{ele.hotelName}</h4>
+                                {/* <h6>{ele.hotelType}</h6> */}
+                                <p>{ele.hotelStreet+","+ele.hotelCity+" ,"+ele.hotelZipCode+", "+ele.hotelState}</p>
                                 
                                 
                                 </div>
+                                <div style={{width:'20%',justifyContent:"center",alignItems:"center",display:"flex",flexDirection:"column"}}>
+                                    <div>
+
+                                    From
+                                    </div>
+                                   
+                                    <div>
+                                    {ele.startingPrice+" "+"USD"}
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div style={{height:50,display:'flex',padding:5}}>
                                     <div style={{display:'flex',flexDirection:'row',width:'70%'}}>
@@ -94,7 +121,7 @@ function HotelList(props){
                                         <button onClick={()=>{
                                           //let history = useHistory();
                                           //history.push("hoteldetails");
-                                          history.push('/hoteldetails',{title:ele.name})
+                                          history.push('/hoteldetails',{details:ele})
                                         }} style={{backgroundColor:"#1c1c1c",padding:5,color:"white",fontWeight:"bold",borderRadius:5}}>View Details</button>
                                         </div>
 
@@ -102,7 +129,8 @@ function HotelList(props){
                     </div>
                     </div>
                 )
-            })}
+
+            }):null}
 
         </div>
         </div>

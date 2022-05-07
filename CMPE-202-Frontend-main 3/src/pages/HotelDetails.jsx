@@ -3,6 +3,9 @@ import NavBarComponent from "../components/NavBar";
 import background from "../assets/searchBg.jpeg";
 import DisplayHotelDetails from "../components/DisplayHotelDetails";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
+import moment from "moment";
 
 
 // export default class HotelDetails extends Component{
@@ -24,40 +27,43 @@ import { useHistory } from "react-router-dom";
 // }
 function HotelDetails(){
     const history=useHistory()
-    console.log("location-->",localStorage.getItem("location"))
+    const location=useLocation();
+    console.log("location-->",location)
+    const hotelId=location.state.details.hotelId;
+   
     const place=localStorage.getItem("location")|| "";
     const startDate=localStorage.getItem("startDate")|| "";
     const endDate=localStorage.getItem("endDate")|| "";
     const adult=localStorage.getItem("adult")|| "";
     const children=localStorage.getItem("children")|| "";
     const room=localStorage.getItem("room")|| "";
-    console.log("children-->",children)
-    const hotelData=[
-        {
-            "name":"One Bed",
-            "address":"211 S. First Street San Jose, California 95113",
-            "price":"105 USD",
-            "id" :1
-        },
-        {
-            "name":"Two Bed",
-            "address":"211 S. First Street San Jose, California 95113",
-            "price":"150 USD",
-            "id":2
-        },
-        {
-            "name":"Suite",
-            "address":"211 S. First Street San Jose, California 95113",
-            "price":"200 USD",
-            "id":3
-        },
-        {
-            "name":"Standard",
-            "address":"211 S. First Street San Jose, California 95113",
-            "price":"170 USD",
-            "id":4
-        },
-    ]
+    const[data,setData]=React.useState([])
+    const start=moment(startDate).format("YYYY-MM-DD");
+    const end=moment(endDate).format("YYYY-MM-DD");
+    console.log("START",start)
+    
+   
+    React.useEffect(() => {
+        const place=localStorage.getItem("location")|| "";
+        
+      const url = `https://cors-anywhere.herokuapp.com/http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getHotelRooms?hotelId=${hotelId}&fromData=${start}&toDate=${end}`;
+     axios.get(url, {headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+
+        
+      }}).then(res=>{
+         console.log("response--->",res)
+         if(res && res.data && res.data.length>0){
+            //  console.log("res.data",res.data)
+             setData(res.data);
+
+         }
+     }).catch(err=>{
+         console.log("Err-->",err)
+     })
+    
+    }, []);
     return(
         <div style={{height:'100vh',backgroundColor:"#F5F5F5"}}>
         <NavBarComponent/>
@@ -68,7 +74,7 @@ function HotelDetails(){
         <DisplayHotelDetails  startDate={startDate} endDate={endDate} children={children} adult={adult} room={room}  />
         </div>
         <h2 style={{marginLeft:'5%'}}>Select a room</h2>
-        {hotelData.map(ele=>{
+        {data.length>0 ?data.map(ele=>{
                 return(
                     <div style={{height:120,backgroundColor:'white',borderBottomWidth:1,borderRadius:10,marginLeft:'10%',marginRight:'10%'}}>
                     <div className="subClass" style={{height:120,display:'flex',flexDirection:'row',marginTop:20,borderBottomColor:"lightgray"}}>
@@ -76,7 +82,7 @@ function HotelDetails(){
                             <img src={background} style={{height:'100%',width:'100%',borderRadius:5}}/>
                             </div>
                             <div style={{display:'flex',flexDirection:'column',paddingLeft:'10%' ,justifyContent:'center',width:'60%'}}>
-                                {ele.name}
+                                {ele.roomType}
                                
                                 
                                 
@@ -88,13 +94,13 @@ function HotelDetails(){
                                         </div>
                                     {/* <p>{ele.price}</p> */}
                                     <div>
-                                        {ele.price}
+                                        {ele.roomPrice+" "+"USD"}
                                         </div>
                                     <button
                                     type="button"
                                     class="btn btn-warning"
                                     onClick={()=>{
-                                        history.push("/bookingdetails",{state:{detail:ele}})
+                                        history.push("/bookingdetails",{state:{detail:ele,hotelId:hotelId}})
                                         //history.push("/hotellist", {state: { detail: JSON.stringify(place) }})
                                     }}
                                     style={{}}>
@@ -108,7 +114,7 @@ function HotelDetails(){
                     
                     </div>
                 )
-            })}
+            }):null}
         </div>
 
     )
