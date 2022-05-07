@@ -16,6 +16,9 @@ import HotelDetails from './pages/HotelDetails';
 import { Component } from 'react';
 import BookingDetails from './pages/BookingDetails';
 import Cancel from './pages/Cancel';
+import CustomerList from './pages/CustomerList';
+import Profile from './pages/Profile';
+import Confirm from './pages/Confirmation';
 //function AppRoutes() {
 //   const routes = useRoutes(
 //     [
@@ -46,6 +49,9 @@ function App() {
        <Route exact path={"/hoteldetails"} component={HotelDetails}/>
        <Route exact path={"/bookingdetails"} component={BookingDetails}/>
        <Route exact path={"/cancel"} component={Cancel}/>
+       <Route exact path={"/customerlist"} component={CustomerList}/>
+       <Route exact path={"/profile"} component={Profile}/>
+       <Route exact path={"/confirm"} component={Confirm}/>
       
 
      </Switch>
