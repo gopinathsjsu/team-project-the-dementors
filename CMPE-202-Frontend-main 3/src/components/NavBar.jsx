@@ -2,9 +2,11 @@
 import React, { Component } from "react";
 
 import {FaUser,FaSignOutAlt} from 'react-icons/fa'
+import { useHistory } from "react-router-dom";
 import background from "../assets/loginBg.jpeg";
 
 const NavBarComponent=()=>{
+    const history=useHistory();
     return(
 
 
@@ -30,10 +32,21 @@ const NavBarComponent=()=>{
 
            </div>
 
-           <div style={{display:"flex",flexDirection:"row",fontFamily:"serif",fontSize:14,fontWeight:"bold",alignItems:"center"}}>
+           <div 
+           onClick={()=>{
+               console.log("clicked")
+              history.push("/")
+           }}
+          
+           style={{display:"flex",flexDirection:"row",fontFamily:"serif",fontSize:14,fontWeight:"bold",alignItems:"center"}}>
 
            
-            <FaSignOutAlt size={14} color={"#231f20"} style={{marginRight:7}}/>
+            <FaSignOutAlt
+            onClick={()=>{
+                
+
+            }}
+            size={14} color={"#231f20"} style={{marginRight:7}}/>
              SignOut
             {/* <h5 style={{color:"#231f20",marginLeft:7,fontSize:14,fontFamily:"serif",fontWeight:"bold"}}>Sign Out</h5> */}
             </div>

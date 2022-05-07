@@ -25,9 +25,11 @@ function SearchHotel () {
     const [children,setChildren]=React.useState(0);
     const[room,setRoom]=React.useState(0)
     const[place,setPlace]=React.useState("")
+    const guest=adult+children;
     console.log("type of",typeof(place),place);
     return (
-        
+       
+
          
           
         <div style={{height:'100vh',backgroundImage: `url(${background})` ,backgroundSize:"cover" }}>
@@ -174,20 +176,29 @@ function SearchHotel () {
               </div>
               <div style={{justifyContent:'center',alignItems:"center",display:"flex"}}>
               <button
+              class="btn btn-info"
+              disabled={guest==0 || room<=0||place.length==0 || startDate.length==0 || endDate.length==0}
               onClick={()=>{
                 // var someDateString = moment(endDate).format("DD/MM/YYYY");
                 // console.log("somstring",someDateString)
+                console.log("difference-->",moment(endDate).diff(moment(startDate),'days'))
+                if(moment(endDate).diff(moment(startDate),'days')>7){
+                    alert("Please select  different start date or end date")
+
+                }
+                else{
                   localStorage.setItem("location",place);
                   localStorage.setItem("startDate",moment(startDate).format("DD/MM/YYYY"));
                   localStorage.setItem("endDate",moment(endDate).format("DD/MM/YYYY"));
                   localStorage.setItem("adult",adult);
                   localStorage.setItem("children",children);
                   localStorage.setItem("room",room);
-                  history.push("/hotellist", {state: { detail: JSON.stringify(place) }})
-                  //history.push("/hotellist", {state: { place,startDate,endDate,adult,children,room }})
+                  history.push("/hotellist", {state: { place,startDate,endDate,adult,children,room }})
+                }
+               
 
               }}
-              style={{backgroundColor:"red",width:'40%',height:40,backgroundColor:"#73a5c6",color:"white",borderRadius:7}}>Search</button>
+              style={{width:'40%',height:40,color:"white",borderRadius:7}}>Search</button>
                   
               </div>
             

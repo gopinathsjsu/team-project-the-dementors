@@ -28,11 +28,13 @@ function   BookingDetails(props){
     const[isParkingChecked,setParkingChecked]=React.useState(false);
     const[isMealsChecked,setMealsChecked]=React.useState(false);
     const[checkedItems,setCheckedItems]=React.useState([])
+    const[isRewardsChecked,setRewardsChecked]=React.useState(false)
     console.log("checkediTme",checkedItems)
     
     
     return(
-        <div style={{height:'100vh',backgroundColor:"#D3D3D3"}}>
+      <body>
+        <div style={{backgroundColor:"#D3D3D3",paddingBottom:40}}>
         <NavBarComponent/>
         
         <div style={{marginRight:'10%',marginLeft:'10%'}}>
@@ -40,7 +42,7 @@ function   BookingDetails(props){
         
         <DisplayHotelDetails  place={place} startDate={startDate} endDate={endDate} children={children} adult={adult} room={room}  />
         <h2 style={{marginTop:10,marginBottom:10,fontWeight:"bold",fontSize:29,fontFamily:"sans-serif"}}>Let's Reserve it</h2>
-        <div style={{backgroundColor:"whitesmoke"}}>
+        <div style={{backgroundColor:"whitesmoke",borderRadius:10}}>
             <div style={{height:350,display:'flex',flexDirection:'row'}}>
                 <div style={{width:'70%'}}>
                 <img src={background} style={{height:'100%',width:'100%',borderRadius:5}}/>
@@ -201,17 +203,28 @@ function   BookingDetails(props){
 
                
             </div>
-            <div className="center">
-                <div style={{width:"70%",display:"flex",marginLeft:10}}>
-                <button type="button" class="btn btn-primary">Checkout</button>
-                </div>
-                <div style={{width:"30%",display:"flex"}}>
-                <p style={{fontWeight:"bold",fontSize:20}}>Total charges : </p>
-            <div style={{width:5}}>
+            <div style={{backgroundColor:"lightgray",height:1,marginTop:'2%',marginBottom:"2%"}}/>
+            <div className="">
+                
+               
+                <label style={{fontFamily:"sans-serif",fontWeight:"bold",marginLeft:10}}>
+                 
+        <input
+          type="checkbox"
+          style={{marginLeft:10,marginRight:10}}
+          checked={isRewardsChecked}
+          //onChange={handleChange}
+          onChange={()=>{
+           setRewardsChecked(!isRewardsChecked)
+           
+          }}
+        />
+         Rewards 
+        </label>
+       
 
-            </div>
-                <p style={{fontSize:20}}>{" " +0}</p>
-                </div>
+                
+              
             </div>
 
         </div>
@@ -219,6 +232,7 @@ function   BookingDetails(props){
        
         </div>
         </div>
+        </body>
 
     )
 }
