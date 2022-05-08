@@ -19,8 +19,7 @@ function Confirm(){
         onClick={()=>{history.push('/search')}}
         >
             Continue
-         </button>
-            
+         </button>          
         </div>
  </div>
     );
