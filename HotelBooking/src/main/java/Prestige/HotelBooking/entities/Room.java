@@ -19,6 +19,7 @@ public class Room {
     private float roomPrice;
     private boolean isAvailable;
     private int numberOfAvailableRooms;
+    private String image;
 
     @OneToOne
     @JoinColumn(name="hotel_id", referencedColumnName = "hotelId")
@@ -78,5 +79,13 @@ public class Room {
 
     public void setNumberOfAvailableRooms(int numberOfAvailableRooms) {
         this.numberOfAvailableRooms = numberOfAvailableRooms;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
