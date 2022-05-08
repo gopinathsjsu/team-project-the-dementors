@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -28,6 +29,16 @@ public class Booking {
 	
 	private Date bookingToDate;
 	
+	private int numberOfDays;
+	
+	public int getNumberOfDays() {
+		return numberOfDays;
+	}
+
+	public void setNumberOfDays(int numberOfDays) {
+		this.numberOfDays = numberOfDays;
+	}
+
 	@ManyToOne
     @JoinColumn(name="cust_id", referencedColumnName = "customerId")
 	private Customer customer;
@@ -40,6 +51,17 @@ public class Booking {
 	@JoinColumn(name="room_id", referencedColumnName = "roomId")
 	private Room room;
 	
+	@OneToOne(mappedBy="booking")
+	private Amenities amenities;
+	
+
+	public Amenities getAmenities() {
+		return amenities;
+	}
+
+	public void setAmenities(Amenities amenities) {
+		this.amenities = amenities;
+	}
 
 	public Customer getCustomer() {
 		return customer;

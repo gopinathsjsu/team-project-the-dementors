@@ -25,11 +25,19 @@ public class Amenities {
     @JoinColumn(name="cust_id", referencedColumnName = "customerId")
     private Customer customer;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="book_id", referencedColumnName = "bookingId")
     private Booking booking;
 
-    @ManyToOne
+    @Override
+	public String toString() {
+		return "Amenities [breakfast=" + breakfast + ", parking=" + parking + ", gym=" + gym + ", swimmingPool="
+				+ swimmingPool + ", meals=" + meals + ", includeEverything=" + includeEverything + ", jacuzzi="
+				+ jacuzzi + ", customer=" + customer + ", booking=" + booking + ", hotel=" + hotel + ", room=" + room
+				+ ", amenitiesId=" + amenitiesId + "]";
+	}
+
+	@ManyToOne
     @JoinColumn(name="hotel_id", referencedColumnName = "hotelId")
     private Hotel hotel;
 

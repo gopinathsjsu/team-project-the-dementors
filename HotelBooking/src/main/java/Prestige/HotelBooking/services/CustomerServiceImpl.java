@@ -1,5 +1,7 @@
 package Prestige.HotelBooking.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,9 @@ public class CustomerServiceImpl {
 		customer.setCustomerName(customerDTO.getCustomerName());
 		customer.setCustomerAge(customerDTO.getCustomerAge());
 		customer.setUser(user);
+		customer.setFirstName(customerDTO.getFirstName());
+		customer.setLastName(customerDTO.getLastName());
+		customer.setEmailId(customerDTO.getEmailId());
 		return customerRepository.save(customer);
 	}
 
@@ -33,9 +38,16 @@ public class CustomerServiceImpl {
 			customer.setCustomerName(customerDTO.getCustomerName());
 			customer.setCustomerAge(customerDTO.getCustomerAge());
 			customer.setUser(user);
+			customer.setFirstName(customerDTO.getFirstName());
+			customer.setLastName(customerDTO.getLastName());
+			customer.setEmailId(customerDTO.getEmailId());
 			return customerRepository.save(customer);
 		}
 		return customer;
 
+	}
+	
+	public List<Customer> getCustomers() {		
+		return customerRepository.findAll();
 	}
 }

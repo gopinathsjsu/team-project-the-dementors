@@ -3,6 +3,8 @@ package Prestige.HotelBooking.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -25,7 +27,18 @@ public class Hotel {
     private float startingPrice;
     private String image;
 
-    public long getHotelId() {
+    @OneToMany(mappedBy="hotel")
+    private List<Booking> booking;
+    
+    public List<Booking> getBooking() {
+		return booking;
+	}
+
+	public void setBooking(List<Booking> booking) {
+		this.booking = booking;
+	}
+
+	public long getHotelId() {
         return hotelId;
     }
 

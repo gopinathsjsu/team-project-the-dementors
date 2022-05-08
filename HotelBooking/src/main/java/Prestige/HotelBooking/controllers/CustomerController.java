@@ -1,8 +1,11 @@
 package Prestige.HotelBooking.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -37,6 +40,17 @@ public class CustomerController {
         
         if(customer != null) {
         	return new ResponseEntity<Customer> (customer, HttpStatus.OK);
+        }
+        return new ResponseEntity<String>("Bad Request", HttpStatus.BAD_REQUEST);
+    }
+	
+	@GetMapping("/getAllCustomers")
+    public ResponseEntity<?> getCustomers(){
+        
+        List<Customer> customer = customerServiceImpl.getCustomers();
+        
+        if(customer != null) {
+        	return new ResponseEntity<List<Customer>> (customer, HttpStatus.OK);
         }
         return new ResponseEntity<String>("Bad Request", HttpStatus.BAD_REQUEST);
     }

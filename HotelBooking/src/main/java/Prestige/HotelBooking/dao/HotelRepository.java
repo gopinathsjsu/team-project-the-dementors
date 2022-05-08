@@ -14,5 +14,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Integer> {
     @Query(value = "Select * from hotel WHERE hotel_state=:state", nativeQuery = true)
     List<Hotel> findByState(@Param("state") String hotelState);
 
+    @Query(value = "Select * from hotel WHERE hotel_id=:hotelId", nativeQuery = true)
+	Hotel findById(@Param("hotelId") long hotelId); 
 
 }

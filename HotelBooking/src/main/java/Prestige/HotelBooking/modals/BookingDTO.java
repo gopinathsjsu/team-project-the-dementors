@@ -13,6 +13,36 @@ public class BookingDTO {
 	private Date bookingToDate;
 	
 	private long customerId;
+	
+	private long hotelId;
+	
+	private long amenitiesId;
+	
+	private long roomId;
+	
+	public long getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(long roomId) {
+		this.roomId = roomId;
+	}
+
+	public long getHotelId() {
+		return hotelId;
+	}
+
+	public void setHotelId(long hotelId) {
+		this.hotelId = hotelId;
+	}
+
+	public long getAmenitiesId() {
+		return amenitiesId;
+	}
+
+	public void setAmenitiesId(long amenitiesId) {
+		this.amenitiesId = amenitiesId;
+	}
 
 	public Date getBookingFromDate() {
 		return bookingFromDate;
