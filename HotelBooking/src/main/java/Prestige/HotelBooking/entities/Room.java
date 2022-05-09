@@ -3,6 +3,8 @@ package Prestige.HotelBooking.entities;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -29,8 +31,8 @@ public class Room {
 
     @OneToOne(mappedBy = "room")
     private Booking booking;
-
-    public Booking getBooking() {
+    
+	public Booking getBooking() {
 		return booking;
 	}
 

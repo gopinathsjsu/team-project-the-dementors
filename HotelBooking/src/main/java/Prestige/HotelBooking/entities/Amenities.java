@@ -25,8 +25,7 @@ public class Amenities {
     @JoinColumn(name="cust_id", referencedColumnName = "customerId")
     private Customer customer;
 
-    @OneToOne
-    @JoinColumn(name="book_id", referencedColumnName = "bookingId")
+    @OneToOne(mappedBy = "amenities")
     private Booking booking;
 
     @Override

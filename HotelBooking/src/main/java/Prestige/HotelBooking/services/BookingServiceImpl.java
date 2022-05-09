@@ -63,10 +63,11 @@ public class BookingServiceImpl {
 		Hotel hotel = hotelRepository.findById(bookingDTO.getHotelId());
 		Booking booking = bookingRepository.findByBookingId(bookingId);
 		Room room = roomRepository.getRoomDetails(bookingDTO.getRoomId());
+		Booking booking = bookingRepository.findByBookingId(bookingId);
 		if (booking != null) {
+			booking.setBookingId(bookingId);
 			booking.setBookingFromDate(bookingDTO.getBookingFromDate());
 			booking.setBookingToDate(bookingDTO.getBookingToDate());
-			booking.setCustomer(customer);
 			booking.setNumberOfDays(getDifferenceDays(bookingDTO.getBookingFromDate(), bookingDTO.getBookingToDate()));
 			booking.setHotel(hotel);
 			booking.setAmenities(bookingDTO.getAmenities());
