@@ -16,9 +16,13 @@ public class BookingDTO {
 	
 	private long hotelId;
 	
-	private long amenitiesId;
+	private String amenities;
 	
 	private long roomId;
+
+	private float price;
+
+	private int numOfRooms;
 	
 	public long getRoomId() {
 		return roomId;
@@ -36,13 +40,6 @@ public class BookingDTO {
 		this.hotelId = hotelId;
 	}
 
-	public long getAmenitiesId() {
-		return amenitiesId;
-	}
-
-	public void setAmenitiesId(long amenitiesId) {
-		this.amenitiesId = amenitiesId;
-	}
 
 	public Date getBookingFromDate() {
 		return bookingFromDate;
@@ -67,6 +64,28 @@ public class BookingDTO {
 	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
-	
-	
+
+	public String getAmenities() {
+		return amenities;
+	}
+
+	public void setAmenities(String amenities) {
+		this.amenities = amenities;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public int getNumOfRooms() {
+		return numOfRooms;
+	}
+
+	public void setNumOfRooms(int numOfRooms) {
+		this.numOfRooms = numOfRooms;
+	}
 }
