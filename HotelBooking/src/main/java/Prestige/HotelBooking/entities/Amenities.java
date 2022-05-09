@@ -25,17 +25,6 @@ public class Amenities {
     @JoinColumn(name="cust_id", referencedColumnName = "customerId")
     private Customer customer;
 
-    @OneToOne(mappedBy = "amenities")
-    private Booking booking;
-
-    @Override
-	public String toString() {
-		return "Amenities [breakfast=" + breakfast + ", parking=" + parking + ", gym=" + gym + ", swimmingPool="
-				+ swimmingPool + ", meals=" + meals + ", includeEverything=" + includeEverything + ", jacuzzi="
-				+ jacuzzi + ", customer=" + customer + ", booking=" + booking + ", hotel=" + hotel + ", room=" + room
-				+ ", amenitiesId=" + amenitiesId + "]";
-	}
-
 	@ManyToOne
     @JoinColumn(name="hotel_id", referencedColumnName = "hotelId")
     private Hotel hotel;
@@ -113,13 +102,6 @@ public class Amenities {
         this.customer = customer;
     }
 
-    public Booking getBooking() {
-        return booking;
-    }
-
-    public void setBooking(Booking booking) {
-        this.booking = booking;
-    }
 
     public Long getAmenitiesId() {
         return amenitiesId;

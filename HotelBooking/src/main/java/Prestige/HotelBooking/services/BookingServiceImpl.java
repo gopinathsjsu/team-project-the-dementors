@@ -61,7 +61,6 @@ public class BookingServiceImpl {
 	public Booking updateBooking(BookingDTO bookingDTO, long bookingId) {
 		Customer customer = customerRepository.findById(bookingDTO.getCustomerId());
 		Hotel hotel = hotelRepository.findById(bookingDTO.getHotelId());
-		Booking booking = bookingRepository.findByBookingId(bookingId);
 		Room room = roomRepository.getRoomDetails(bookingDTO.getRoomId());
 		Booking booking = bookingRepository.findByBookingId(bookingId);
 		if (booking != null) {
