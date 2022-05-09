@@ -2,7 +2,9 @@ package Prestige.HotelBooking.entities;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,11 +49,12 @@ public class Booking {
 	@JoinColumn(name="hotel_id", referencedColumnName = "hotelId")
 	private Hotel hotel;
 
-	@ManyToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="room_id", referencedColumnName = "roomId")
 	private Room room;
 	
-	@OneToOne(mappedBy="booking")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="amenities_id", referencedColumnName = "amenitiesId")
 	private Amenities amenities;
 	
 

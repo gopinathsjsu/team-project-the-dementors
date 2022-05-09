@@ -10,11 +10,11 @@ import Prestige.HotelBooking.entities.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-	@Query(value = "Select * from User WHERE user_name=:username and password=:password", nativeQuery = true)
-	User findByUserName(@Param("username") String username, @Param("password") String password);
+	@Query(value = "Select * from User WHERE email=:email and password=:password", nativeQuery = true)
+	User findByUserName(@Param("email") String email, @Param("password") String password);
 	
 	@Query(value = "Select * from User WHERE user_id=:userId", nativeQuery = true)
-	User findByUserId(@Param("userId") long username);
+	User findByUserId(@Param("userId") long email);
 
 	
 }
