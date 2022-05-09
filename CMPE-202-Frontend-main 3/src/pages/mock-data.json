@@ -1,0 +1,80 @@
+{
+    "userId": 1,
+    "userName": "anusha",
+    "password": "anusha123",
+    "userRole": "customer",
+    "employee": null,
+    "customer": {
+        "customerId": 4,
+        "customerName": "GangasaniA",
+        "customerAge": 25,
+        "firstName": "Anusha",
+        "lastName": "Gangasani",
+        "emailId": "a.gangasani@gmail.com",
+        "customerRewards": [
+            {
+                "customerRewardsId": 11,
+                "reward": "1.0",
+                "customer": 4
+            }
+        ],
+        "booking": [
+            {
+                "bookingId": 6,
+                "bookingFromDate": "2022-04-22T00:00:00.000+00:00",
+                "bookingToDate": "2022-04-23T00:00:00.000+00:00",
+                "numberOfDays": 1,
+                "customer": 4,
+                "hotel": {
+                    "hotelId": 1,
+                    "hotelName": "202-Hotel",
+                    "hotelType": "5-Star",
+                    "hotelStreet": "Hart Cmn",
+                    "hotelCity": "Fremont",
+                    "hotelState": "California",
+                    "hotelCountry": "u.s",
+                    "hotelZipCode": 94538,
+                    "startingPrice": 500.0,
+                    "image": null,
+                    "booking": [
+                        6
+                    ]
+                },
+                "room": {
+                    "roomId": 2,
+                    "roomNo": 201,
+                    "roomType": "2BHK",
+                    "roomPrice": 500.0,
+                    "numberOfAvailableRooms": 10,
+                    "image": null,
+                    "hotel": 1,
+                    "booking": 6,
+                    "available": true
+                },
+                "amenities": {
+                    "amenitiesId": 222,
+                    "breakfast": 1.0,
+                    "parking": 6.0,
+                    "gym": 2.0,
+                    "swimmingPool": 7.0,
+                    "meals": 5.0,
+                    "includeEverything": 3.0,
+                    "jacuzzi": 4.0,
+                    "customer": 4,
+                    "booking": 6,
+                    "hotel": 1,
+                    "room": 2,
+                    "id": 222
+                }
+            }
+        ],
+        "user": {
+            "userId": 1,
+            "userName": "anusha",
+            "password": "anusha123",
+            "userRole": "customer",
+            "employee": null,
+            "customer": 4
+        }
+    }
+}
