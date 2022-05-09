@@ -22,8 +22,6 @@ public class CustomerServiceImpl {
 	public Customer saveCustomer(CustomerDTO customerDTO) {
 		User user = userServiceImpl.findByUserId(customerDTO.getUserId());
 		Customer customer = new Customer();
-		customer.setCustomerName(customerDTO.getCustomerName());
-		customer.setCustomerAge(customerDTO.getCustomerAge());
 		customer.setUser(user);
 		customer.setFirstName(customerDTO.getFirstName());
 		customer.setLastName(customerDTO.getLastName());
@@ -35,8 +33,6 @@ public class CustomerServiceImpl {
 		Customer customer = customerRepository.findById(customerId);
 		User user = userServiceImpl.findByUserId(customerDTO.getUserId());
 		if (customer != null) {
-			customer.setCustomerName(customerDTO.getCustomerName());
-			customer.setCustomerAge(customerDTO.getCustomerAge());
 			customer.setUser(user);
 			customer.setFirstName(customerDTO.getFirstName());
 			customer.setLastName(customerDTO.getLastName());

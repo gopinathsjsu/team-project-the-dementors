@@ -23,7 +23,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long employeeId;
 	
-	private String employeeName;
+	private String employeeEmail;
 	
 	private int employeeAge;
 	
@@ -39,12 +39,14 @@ public class Employee {
 		this.employeeId = employeeId;
 	}
 
-	public String getEmployeeName() {
-		return employeeName;
+
+
+	public String getEmployeeEmail() {
+		return employeeEmail;
 	}
 
-	public void setEmployeeName(String employeeName) {
-		this.employeeName = employeeName;
+	public void setEmployeeEmail(String employeeEmail) {
+		this.employeeEmail = employeeEmail;
 	}
 
 	public int getEmployeeAge() {

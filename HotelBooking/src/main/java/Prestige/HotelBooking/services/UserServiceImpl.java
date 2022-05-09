@@ -15,7 +15,7 @@ public class UserServiceImpl {
     private UserRepository userRepository;
 
 	public User findByUserName(UserDTO userDTO) {
-		return userRepository.findByUserName(userDTO.getUserName(), userDTO.getPassword());
+		return userRepository.findByUserName(userDTO.getEmail(), userDTO.getPassword());
 	}
 	
 	public User findByUserId(long userId) {
@@ -24,7 +24,7 @@ public class UserServiceImpl {
 	
 	public User registerUser(UserRegisterDTO userRegisterDTO) {
 		User user = new User();
-		user.setUserName(userRegisterDTO.getUserName());
+		user.setEmail(userRegisterDTO.getEmail());
 		user.setPassword(userRegisterDTO.getPassword());
 		user.setUserRole(userRegisterDTO.getUserRole());
 		return userRepository.save(user);

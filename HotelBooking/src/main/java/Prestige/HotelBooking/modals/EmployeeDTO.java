@@ -3,18 +3,20 @@ package Prestige.HotelBooking.modals;
 
 public class EmployeeDTO {
 
-	private String employeeName;
+	private String employeeEmail;
 	
 	private int employeeAge;
 	
 	private long userId;
 
-	public String getEmployeeName() {
-		return employeeName;
+
+
+	public String getEmployeeEmail() {
+		return employeeEmail;
 	}
 
-	public void setEmployeeName(String employeeName) {
-		this.employeeName = employeeName;
+	public void setEmployeeEmail(String employeeEmail) {
+		this.employeeEmail = employeeEmail;
 	}
 
 	public int getEmployeeAge() {

@@ -25,11 +25,7 @@ public class Customer {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long customerId;
-	
-	private String customerName;
-	
-	private int customerAge;
-	
+
 	private String firstName;
 	
 	private String lastName;
@@ -95,21 +91,6 @@ public class Customer {
 		this.customerId = customerId;
 	}
 
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
-
-	public int getCustomerAge() {
-		return customerAge;
-	}
-
-	public void setCustomerAge(int customerAge) {
-		this.customerAge = customerAge;
-	}
 
 	public User getUser() {
 		return user;

@@ -5,9 +5,9 @@ import java.util.List;
 
 public class CustomerDTO {
 
-	private String customerName;
+	
 
-	private int customerAge;
+
 
 	private long userId;
 	
@@ -41,21 +41,6 @@ public class CustomerDTO {
 		this.emailId = emailId;
 	}
 
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
-
-	public int getCustomerAge() {
-		return customerAge;
-	}
-
-	public void setCustomerAge(int customerAge) {
-		this.customerAge = customerAge;
-	}
 
 	public long getUserId() {
 		return userId;

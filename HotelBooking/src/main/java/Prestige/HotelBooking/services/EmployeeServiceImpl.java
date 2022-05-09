@@ -20,7 +20,7 @@ public class EmployeeServiceImpl {
 		User user = userServiceImpl.findByUserId(employeeDTO.getUserId());
 		Employee employee = new Employee();
 		employee.setEmployeeAge(employeeDTO.getEmployeeAge());
-		employee.setEmployeeName(employeeDTO.getEmployeeName());
+		employee.setEmployeeEmail(employeeDTO.getEmployeeEmail());
 		employee.setUser(user);
 		return employeeRepository.save(employee);
 	}
