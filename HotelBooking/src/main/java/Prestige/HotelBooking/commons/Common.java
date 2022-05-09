@@ -1,18 +1,26 @@
 package Prestige.HotelBooking.commons;
 
+import Prestige.HotelBooking.entities.CustomerRewards;
+import Prestige.HotelBooking.services.RewardServiceImpl;
 import com.github.agogs.holidayapi.api.APIConsumer;
 import com.github.agogs.holidayapi.api.impl.HolidayAPIConsumer;
 import com.github.agogs.holidayapi.model.Holiday;
 import com.github.agogs.holidayapi.model.HolidayAPIResponse;
 import com.github.agogs.holidayapi.model.QueryParams;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import Prestige.HotelBooking.services.RewardServiceImpl;
+
 
 public class Common {
+
+   // @Autowired
+   // private static RewardServiceImpl rewardService;
     public static final float PRICEINFLATION = (float) 0.1;
     public static boolean isWeekend(final Date d)
     {
@@ -61,5 +69,6 @@ public class Common {
         }
         return false;
     }
+
 
 }

@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -41,6 +40,10 @@ public class Booking {
 		this.numberOfDays = numberOfDays;
 	}
 
+	private String amenities;
+
+	private float price;
+
 	@ManyToOne
     @JoinColumn(name="cust_id", referencedColumnName = "customerId")
 	private Customer customer;
@@ -52,19 +55,7 @@ public class Booking {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="room_id", referencedColumnName = "roomId")
 	private Room room;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="amenities_id", referencedColumnName = "amenitiesId")
-	private Amenities amenities;
-	
 
-	public Amenities getAmenities() {
-		return amenities;
-	}
-
-	public void setAmenities(Amenities amenities) {
-		this.amenities = amenities;
-	}
 
 	public Customer getCustomer() {
 		return customer;
@@ -112,5 +103,21 @@ public class Booking {
 
 	public void setRoom(Room room) {
 		this.room = room;
+	}
+
+	public void setAmenities(String amenities) {
+		this.amenities = amenities;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public String getAmenities() {
+		return amenities;
 	}
 }

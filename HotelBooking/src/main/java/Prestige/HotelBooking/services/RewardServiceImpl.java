@@ -30,4 +30,14 @@ public class RewardServiceImpl {
 	public void deleteReward(long customerRewardsId) {
 		rewardRepository.deleteRewards(customerRewardsId);
 	}
+
+	public  void updateReward(double rewards, long customerRewardsId) {
+		rewardRepository.updateCustomerRewards(rewards,customerRewardsId);
+	}
+
+	public  CustomerRewards getCustomerRewards(long customerId){
+		return rewardRepository.getCustomerRewards(customerId);
+	}
+
+
 }

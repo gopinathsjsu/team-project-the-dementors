@@ -3,12 +3,7 @@ package Prestige.HotelBooking.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import Prestige.HotelBooking.entities.Booking;
 import Prestige.HotelBooking.entities.Customer;
@@ -22,6 +17,7 @@ public class BookingController {
 	@Autowired
 	private BookingServiceImpl bookingServiceImpl;
 
+    @CrossOrigin(origins = "*")
 	@PostMapping("/saveBooking")
     public ResponseEntity<?> saveBooking(@RequestBody BookingDTO bookingDTO){
         
@@ -32,15 +28,16 @@ public class BookingController {
         }
         return new ResponseEntity<String>("Bad Request", HttpStatus.BAD_REQUEST);
     }
-	
-	
+
+    @CrossOrigin(origins = "*")
 	@DeleteMapping("/deleteBooking/{bookingId}")
     public void deleteBooking(@PathVariable Long bookingId){
         
         bookingServiceImpl.deleteBooking(bookingId);
         
     }
-	
+
+    @CrossOrigin(origins = "*")
 	@PutMapping("/updateBooking/{bookingId}")
     public ResponseEntity<?> updateBooking(@RequestBody BookingDTO bookingDTO, @PathVariable Long bookingId){
         

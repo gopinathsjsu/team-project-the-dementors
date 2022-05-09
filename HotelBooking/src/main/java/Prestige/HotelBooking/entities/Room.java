@@ -23,6 +23,8 @@ public class Room {
     private int numberOfAvailableRooms;
     private String image;
 
+    private String description;
+
     @OneToOne
     @JoinColumn(name="hotel_id", referencedColumnName = "hotelId")
     private Hotel hotel;
@@ -100,5 +102,13 @@ public class Room {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
