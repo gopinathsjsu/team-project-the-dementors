@@ -17,3 +17,20 @@ Github: https://github.com/gopinathsjsu/team-project-the-dementors/
 <img src="https://www.vectorlogo.zone/logos/mysql/mysql-icon.svg" alt="AWS" width="48" height="48"/>
 <img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg" alt="React" width="48" height="48"/>
 </p>
+
+### Team Member Contributions:
+#### 1. Anusha Gangasani:    
+#### 2. Ashika Anand Babu:  
+   1. Implementaion, Integration and testing of Cancel screen
+   2. Implementaion, Integration and testing of Confirm screen
+   3. Implementaion, Integration and testing of Bookings by a customer screen
+   4. Implementaion, Integration and testing of Bookings for an hotel screen
+   5. Implementaion, Integration and testing of Profile screen
+#### 4. Ramya Mahesh:    
+#### 5. Shruthi Srinivasan:        
+   1. Implementaion, Integration and testing of Login screen
+   2. Implementaion, Integration and testing of Signup screen
+   3. Implementaion, Integration and testing of Search screen
+   4. Implementaion, Integration and testing of List of hotels screen
+   5. Implementaion, Integration and testing of Hotel Details screen   
+   6. Implementaion, Integration and testing of Booking Confirmation screen
