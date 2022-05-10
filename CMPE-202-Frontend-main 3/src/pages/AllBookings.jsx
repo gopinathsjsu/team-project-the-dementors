@@ -44,6 +44,7 @@ const handleEditFormSubmit = (event)=>{
             newUpdatedRow[i].bookingToDate = editedRow.bookingToDate;
         }
     }
+    // console.log(newUpdatedRow);
     setBooking(newUpdatedRow);
     setEditbookingId(null);
 }
@@ -99,7 +100,6 @@ const handleDeleteClick = (event,bookingId) =>{
                                 />
                               ) }
                           </Fragment>
-                        
                          ))}
                   </tbody>
                 </table>

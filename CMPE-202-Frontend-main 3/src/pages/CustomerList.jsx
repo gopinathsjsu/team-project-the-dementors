@@ -5,7 +5,24 @@ import moment from 'moment';
 import data from "./allcustomer-data.json";
 
 function CustomerList(){
-  const [allcustomers,setCustomer]= useState(data);
+  const [allcustomers,setCustomer]= useState([]);
+
+  React.useEffect(() => {
+  const url = `http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getHotelBooking?hotelId=1`;
+  axios.get(url, {headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json' 
+  }}).then(res=>{
+     console.log("response--->",res)
+     if(res && res.data && res.data.length>0){
+         console.log("res.data",res.data)
+         setCustomer(res.data);
+     }
+}).catch(err=>{
+     console.log("Err-->",err)
+ })
+}, []);
+
   return(
     <div style={{height:'100vh',backgroundSize:"cover",opacity:0.8 }}>
                <NavBarComponent/>
@@ -24,12 +41,12 @@ function CustomerList(){
                       {
                       allcustomers.map(function(c){
                         return (
-                            <tr key={c.customerId}>
-                            <td>{c.customerName}</td>
-                            {/* <td>{c.booking[0].room.roomNo}</td>
-                            <td>{moment(c.booking[0].bookingFromDate).format('MM/DD/yy')}</td>
-                            <td>{moment(c.booking[0].bookingToDate).format('MM/DD/yy')}</td>
-                            <td>{c.booking}</td> */}
+                            <tr key={c.customer.customerId}>
+                            <td>{(c.customer.firstName) + " " + (c.customer.lastName)}</td>
+                            <td>{c.room.roomNo}</td>
+                            <td>{moment(c.bookingFromDate).format('MM/DD/yy')}</td>
+                            <td>{moment(c.bookingToDate).format('MM/DD/yy')}</td>
+                            <td>{c.price}</td>
                             </tr>
                         );
                          })}
