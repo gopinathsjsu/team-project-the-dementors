@@ -1,8 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import NavBarComponent from "../components/NavBar";
 import axios from 'axios';
+import moment from 'moment';
+import data from "./allcustomer-data.json";
 
 function CustomerList(){
+  const [allcustomers,setCustomer]= useState(data);
   return(
     <div style={{height:'100vh',backgroundSize:"cover",opacity:0.8 }}>
                <NavBarComponent/>
@@ -14,15 +17,22 @@ function CustomerList(){
                       <th>Customer Room</th>
                       <th>Check in Date</th>
                       <th>Check out Date</th>
+                      <th>Price</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Test</td>
-                      <td>503</td>
-                      <td>1 July 2022</td>
-                      <td>2 July 2022</td>
-                    </tr>
+                      {
+                      allcustomers.map(function(c){
+                        return (
+                            <tr key={c.customerId}>
+                            <td>{c.customerName}</td>
+                            {/* <td>{c.booking[0].room.roomNo}</td>
+                            <td>{moment(c.booking[0].bookingFromDate).format('MM/DD/yy')}</td>
+                            <td>{moment(c.booking[0].bookingToDate).format('MM/DD/yy')}</td>
+                            <td>{c.booking}</td> */}
+                            </tr>
+                        );
+                         })}
                   </tbody>
                 </table>
                </div>

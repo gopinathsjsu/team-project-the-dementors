@@ -1,0 +1,120 @@
+[
+    {
+      "bookingId": 1,
+      "bookingFromDate": "2022-05-10T00:00:00.000+00:00",
+      "bookingToDate": "2022-05-16T00:00:00.000+00:00",
+      "numberOfDays": 1,
+      "amenities": "Jacuzzi",
+      "price": 150,
+      "customer": {
+        "customerId": 1,
+        "firstName": "YYYYYY",
+        "lastName": "XXXXX",
+        "emailId": "ramya.mahesh@sjsu.edu",
+        "customerRewards": [
+          {
+            "customerRewardsId": 1,
+            "reward": 500,
+            "customer": 1
+          }
+        ],
+        "booking": [
+          1
+        ],
+        "user": {
+          "userId": 1,
+          "email": "ramya.mahesh@sjsu.edu",
+          "password": "ramya123",
+          "userRole": "customer",
+          "employee": null,
+          "customer": 1
+        }
+      },
+      "hotel": {
+        "hotelId": 1,
+        "hotelName": "Hyatt",
+        "hotelType": "3 star",
+        "hotelStreet": "82 Karina Court, Airport",
+        "hotelCity": "San Jose",
+        "hotelState": "California",
+        "hotelCountry": "USA",
+        "hotelZipCode": 95131,
+        "startingPrice": 99,
+        "image": "https://images.trvl-media.com/hotels/29000000/28830000/28827400/28827384/b9f5c7f7.jpg?impolicy=resizecrop&rw=455&ra=fit",
+        "booking": [
+          1
+        ]
+      },
+      "room": {
+        "roomId": 1,
+        "roomNo": 101,
+        "roomType": "One Bed",
+        "roomPrice": 134,
+        "numberOfAvailableRooms": 10,
+        "image": "https://images.trvl-media.com/hotels/29000000/28830000/28827400/28827384/8e9b2091.jpg?impolicy=fcrop&w=1200&h=800&p=1&q=medium",
+        "description": "Garden view",
+        "hotel": 1,
+        "booking": 1,
+        "available": true
+      }
+    },
+    {
+        "bookingId": 2,
+        "bookingFromDate": "2022-05-10T00:00:00.000+00:00",
+        "bookingToDate": "2022-05-11T00:00:00.000+00:00",
+        "numberOfDays": 1,
+        "amenities": "Continental Breakfast,Jacuzzi",
+        "price": 130,
+        "customer": {
+          "customerId": 1,
+          "firstName": "Ramya",
+          "lastName": "Mahesh",
+          "emailId": "ramya.mahesh@sjsu.edu",
+          "customerRewards": [
+            {
+              "customerRewardsId": 1,
+              "reward": 500,
+              "customer": 1
+            }
+          ],
+          "booking": [
+            1
+          ],
+          "user": {
+            "userId": 1,
+            "email": "ramya.mahesh@sjsu.edu",
+            "password": "ramya123",
+            "userRole": "customer",
+            "employee": null,
+            "customer": 1
+          }
+        },
+        "hotel": {
+          "hotelId": 1,
+          "hotelName": "Hyatt",
+          "hotelType": "3 star",
+          "hotelStreet": "82 Karina Court, Airport",
+          "hotelCity": "San Jose",
+          "hotelState": "California",
+          "hotelCountry": "USA",
+          "hotelZipCode": 95131,
+          "startingPrice": 99,
+          "image": "https://images.trvl-media.com/hotels/29000000/28830000/28827400/28827384/b9f5c7f7.jpg?impolicy=resizecrop&rw=455&ra=fit",
+          "booking": [
+            1
+          ]
+        },
+        "room": {
+          "roomId": 1,
+          "roomNo": 101,
+          "roomType": "One Bed",
+          "roomPrice": 134,
+          "numberOfAvailableRooms": 10,
+          "image": "https://images.trvl-media.com/hotels/29000000/28830000/28827400/28827384/8e9b2091.jpg?impolicy=fcrop&w=1200&h=800&p=1&q=medium",
+          "description": "Garden view",
+          "hotel": 1,
+          "booking": 1,
+          "available": true
+        }
+      }
+  ]
