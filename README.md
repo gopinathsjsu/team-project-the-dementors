@@ -1,5 +1,5 @@
-# team-project-the-dementors
-team-project-the-dementors created by GitHub Classroom
+# Team Dementors : 
+Github: https://github.com/gopinathsjsu/team-project-the-dementors/
 
 ### Team Members:    
 1. Ashika Anand Babu   
@@ -7,4 +7,4 @@ team-project-the-dementors created by GitHub Classroom
 3. Anusha Gangasani    
 4. Shruthi Srinivasan
 
-
+# Tech Stack
