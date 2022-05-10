@@ -45,9 +45,8 @@ public class Booking {
 	@JoinColumn(name="hotel_id", referencedColumnName = "hotelId")
 	private Hotel hotel;
 
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
 	@JoinColumn(name="room_id", referencedColumnName = "roomId")
-	@JsonIgnore
 	private Room room;
 
 
