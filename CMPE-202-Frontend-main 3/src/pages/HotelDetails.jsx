@@ -29,7 +29,14 @@ function HotelDetails(){
     const history=useHistory()
     const location=useLocation();
     console.log("location-->",location)
-    const hotelId=location.state.details.hotelId;
+var hotelId;
+    if(location.state.fromBooking){
+        hotelId=location.state.hotelId
+
+    }
+    else{
+     hotelId=location.state.details.hotelId;
+    }
    
     const place=localStorage.getItem("location")|| "";
     const startDate=localStorage.getItem("startDate")|| "";
@@ -38,15 +45,15 @@ function HotelDetails(){
     const children=localStorage.getItem("children")|| "";
     const room=localStorage.getItem("room")|| "";
     const[data,setData]=React.useState([])
-    const start=moment(startDate).format("YYYY-MM-DD");
-    const end=moment(endDate).format("YYYY-MM-DD");
-    console.log("START",start)
+    const start=moment(startDate,'DD/MM/YYYY').format("YYYY-MM-DD");
+    const end=moment(endDate,'DD/MM/YYYY').format("YYYY-MM-DD");
+    console.log("START",start,startDate)
     
    
     React.useEffect(() => {
         const place=localStorage.getItem("location")|| "";
         
-      const url = `https://cors-anywhere.herokuapp.com/http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getHotelRooms?hotelId=${hotelId}&fromData=${start}&toDate=${end}`;
+      const url = `http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getHotelRooms?hotelId=${hotelId}&fromData=${start}&toDate=${end}`;
      axios.get(url, {headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'
@@ -79,7 +86,7 @@ function HotelDetails(){
                     <div style={{height:120,backgroundColor:'white',borderBottomWidth:1,borderRadius:10,marginLeft:'10%',marginRight:'10%'}}>
                     <div className="subClass" style={{height:120,display:'flex',flexDirection:'row',marginTop:20,borderBottomColor:"lightgray"}}>
                         <div style={{width:"20%"}}>
-                            <img src={background} style={{height:'100%',width:'100%',borderRadius:5}}/>
+                            <img src={ele.image} style={{height:'100%',width:'100%',borderRadius:5}}/>
                             </div>
                             <div style={{display:'flex',flexDirection:'column',paddingLeft:'10%' ,justifyContent:'center',width:'60%'}}>
                                 {ele.roomType}

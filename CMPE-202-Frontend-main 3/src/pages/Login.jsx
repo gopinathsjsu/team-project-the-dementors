@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {FaUser,FaKey} from 'react-icons/fa'
-import background from "../assets/loginBg.jpeg";
+import background from "../assets/background.jpeg";
 import UserPool  from "../UserPool";
 import {AuthenticationDetails, CognitoUser} from 'amazon-cognito-identity-js'
 //import AWS from 'aws-sd'
@@ -9,6 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Backdrop from '@material-ui/core/Backdrop'
 import {makeStyles} from '@material-ui/core'
 import LoadingOverlay from 'react-loading-overlay';
+import axios from "axios";
 
 const useStyles=makeStyles((theme)=>({
     backdrop:{
@@ -35,10 +36,9 @@ componentDidUpdate(prevState){
     if(this.state.navigate!=prevState.navigate && this.state.navigate){
         //localStorage.setItem("userName",place);
         console.log("navigate")
-        // alert("Registartion successfull")
+        //alert("Registartion successfull")
 
         //callLoginAPi
-        //get userId,username,type
         this.props.history.push("/search")
     }
 }
@@ -86,12 +86,33 @@ _changeState(){
        );
        call.then(res=>{
            console.log("Res promise",res)
-           this.setState({navigate:true})
+           this._callLogin()
+
+          // this.setState({navigate:true})
        }).catch(Err=>{
            console.log("err in promise",Err)
            alert("Incorrect username or password")
        })
+  
 
+    }
+    _callLogin(){
+        var url="http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/login"
+        const body={
+            "email":this.state.email,
+            "password":this.state.password
+        }
+        axios.post(url,body).then(res=>{
+           if(res && res.data && res.data.userId){
+               if(res.data.userRole=="Customer"){
+                   this.props.history.push("search")
+
+               }
+               
+           }
+        }).catch(err=>{
+            console.log("err=>",err)
+        })
     }
 
     //f7q7re1qmcf0lr3vpvio3v9h1
@@ -103,10 +124,10 @@ _changeState(){
         return (
             <div style={{height:'100vh',display:'flex',justifyContent:'center',alignItems:'center',backgroundImage: `url(${background})` ,backgroundSize:"cover" }}>
            
-            <form  style={{paddingTop:'10%',paddingBottom:"10%", borderRadius:10,backgroundColor:'white',paddingLeft:"5%",paddingRight:"5%"}}>
+            <form  style={{paddingTop:'4%',paddingBottom:"4%", borderRadius:10,backgroundColor:'white',paddingLeft:"2%",paddingRight:"2%"}}>
                 <h3 style={{textAlign:'center',fontWeight:"bold",fontSize:28}}>Login</h3>
                
-                <div style={{flexDirection:"row",display:"flex",backgroundColor:"lightgray",width:300,borderRadius:6,alignItems:"center",paddingLeft:10}} className="form-group">
+                <div style={{flexDirection:"row",marginBottom:30,marginTop:30, display:"flex",backgroundColor:"lightgray",width:300,borderRadius:6,alignItems:"center",paddingLeft:10}} className="form-group">
                     <FaUser size={10} color={"gray"}/>
                    
                     <input
@@ -136,7 +157,7 @@ _changeState(){
                     this.onSubmit()
                     this.setState({loading:true})
                 }}
-                style={{alignSelf:'center',marginTop:10,width:'70%'}} type="button" className="btn btn-primary btn-block">Submit</button>
+                style={{alignSelf:'center',marginTop:30,width:'70%'}} type="button" className="btn btn-primary btn-block">Submit</button>
                </div>
                 
             </form>

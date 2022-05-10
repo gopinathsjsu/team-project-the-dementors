@@ -29,7 +29,7 @@ function HotelList(props){
     React.useEffect(() => {
         const place=localStorage.getItem("location")|| "";
         
-      const url = `https://cors-anywhere.herokuapp.com/http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getHotels?city=${place}`;
+      const url = `http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getHotels?city=${place}`;
      axios.get(url, {headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'
@@ -40,6 +40,9 @@ function HotelList(props){
          if(res && res.data && res.data.length>0){
             //  console.log("res.data",res.data)
              setData(res.data);
+             res.data.map(ele=>{
+                 console.log("ele.image-->",typeof(ele.image));
+             })
 
          }
      }).catch(err=>{
@@ -76,6 +79,9 @@ function HotelList(props){
   
     let history=useHistory()
     //console.log("data-->",data,props)
+   //URL.createObjectURL("L1VzZXJzL3JhbXlhbWFoZXNoL0Rvd25sb2Fkcy9Ib3RlbHMvSHlhdHQgU2FuIEpvc2UuanBlZw==");
+    
+                  //setImg(imageObjectURL);
     
 
     return(
@@ -86,11 +92,14 @@ function HotelList(props){
         <div style={{marginRight:'10%',marginLeft:'10%'}}>
             <h2>Select a hotel</h2>
             {data.length>0 ?data.map(ele=>{
+                const imageObjectURL = URL.createObjectURL(new Blob([ele.image]));
+                console.log("imageurl-->",imageObjectURL)
+                  
                 return(
                     <div style={{height:150,backgroundColor:'white',borderBottomWidth:1,borderRadius:10}}>
                     <div className="subClass" style={{height:100,display:'flex',flexDirection:'row',marginTop:20,borderBottomColor:"lightgray"}}>
                         <div style={{width:"20%"}}>
-                            <img src={background} style={{height:'100%',width:'100%',borderRadius:5}}/>
+                            <img src={ele.image} style={{height:'100%',width:'100%',borderRadius:5}}/>
                             </div>
                             <div style={{display:'flex',flexDirection:'column',paddingLeft:'10%' ,justifyContent:'center',width:"60%"}}>
                                 <h4>{ele.hotelName}</h4>
@@ -121,6 +130,7 @@ function HotelList(props){
                                         <button onClick={()=>{
                                           //let history = useHistory();
                                           //history.push("hoteldetails");
+                                          localStorage.setItem("hotelImg",ele.image);
                                           history.push('/hoteldetails',{details:ele})
                                         }} style={{backgroundColor:"#1c1c1c",padding:5,color:"white",fontWeight:"bold",borderRadius:5}}>View Details</button>
                                         </div>

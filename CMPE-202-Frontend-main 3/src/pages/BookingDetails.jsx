@@ -24,7 +24,8 @@ function   BookingDetails(props){
    
     const params=location.state.state.detail;
     const hotelId=location.state.state.hotelId
-    const diff=moment(endDate).diff(moment(startDate),'days');
+    
+    const link=localStorage.getItem("hotelImg");
   
     const[isBreakfastChecked,setBreakfastChecked]=React.useState(false);
     const[isFitnessChecked,setFitnessChecked]=React.useState(false);
@@ -37,13 +38,14 @@ function   BookingDetails(props){
     const[amenities,setAmenities]=React.useState([])
     
     React.useEffect(() => {
-      console.log("params-->",params)
-      const totalPrice=parseInt(params.roomPrice)*3;
+      console.log("params-->",params,typeof(diff),diff)
+      const totalPrice=parseInt(params.roomPrice)*parseInt(room)*diff;
       console.log("totalprice-->",totalPrice)
+      setTotalPrice(totalPrice)
 
       const place=localStorage.getItem("location")|| "";
       
-    const url = `https://cors-anywhere.herokuapp.com/http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getAmenities?hotelId=${hotelId}`;
+    const url = `http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getAmenities?hotelId=${1}`;
     axios.get(url, {headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json'
@@ -74,6 +76,12 @@ function   BookingDetails(props){
   
   }, []);
     const rewardPts=50;
+    const start=moment(startDate,'DD/MM/YYYY').format("YYYY-MM-DD");
+    const end=moment(endDate,"DD/MM/YYYY").format("YYYY-MM-DD");
+    console.log("start-->",end)
+    const imageLink=localStorage.getItem("hotelImg");
+    console.log("imagelink-->",imageLink)
+    const diff=moment(end).diff(moment(start),'days');
   
    
     
@@ -91,7 +99,7 @@ function   BookingDetails(props){
         <div style={{backgroundColor:"whitesmoke",borderRadius:10}}>
             <div style={{height:350,display:'flex',flexDirection:'row'}}>
                 <div style={{width:'70%'}}>
-                <img src={background} style={{height:'100%',width:'100%',borderRadius:5}}/>
+                <img src={link} style={{height:'100%',width:'100%',borderRadius:5}}/>
                 </div>
                 <div style={{width:'40%',display:"flex",flexDirection:"column",paddingTop:15,paddingLeft:20}}>
                 <h5 style={{fontStyle:"unset",fontSize:27,color:"#830051",fontFamily:"sans-serif",fontWeight:"bold"}}>{"Marriot"}</h5>
@@ -190,11 +198,12 @@ function   BookingDetails(props){
         })
         console.log("string-->",string)
 
-      const url=`https://cors-anywhere.herokuapp.com/http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getAmenitiesPrice?hotelId=1&roomId=1&fromDate=2022-02-02&toDate=2022-02-04&amenities=${string}`
+      const url=`http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getAmenitiesPrice?hotelId=1&roomId=1&fromDate=${start}&toDate=${end}&amenities=${string}`
+      console.log("url-->",url)
       axios.get(url).then(Res=>{
         console.log("price",Res)
         if(Res && Res.data){
-          setTotalPrice(Res.data)
+          setTotalPrice(Res.data*parseInt(room))
         }
       }).catch(err=>{
         console.log("Err price",err)
