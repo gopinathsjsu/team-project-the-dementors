@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class BookingServiceImpl {
@@ -92,11 +93,10 @@ public class BookingServiceImpl {
 	}
 
 	public int getDifferenceDays(Date d1, Date d2) {
-	    int daysdiff = 0;
-	    long diff = d2.getTime() - d1.getTime();
-	    long diffDays = diff / (24 * 60 * 60 * 1000);
-	    daysdiff = (int) diffDays;
-	    return daysdiff;
+		long diffInMillies = Math.abs(d2.getTime() - d1.getTime());
+		long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		int i = (int)diff;
+	    return i;
 	}
 	
 	public List<Booking> getAllHotelBooking(long hotelId){
