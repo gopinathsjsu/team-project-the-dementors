@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -44,7 +45,7 @@ public class Booking {
 	@JoinColumn(name="hotel_id", referencedColumnName = "hotelId")
 	private Hotel hotel;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
 	@JoinColumn(name="room_id", referencedColumnName = "roomId")
 	private Room room;
 

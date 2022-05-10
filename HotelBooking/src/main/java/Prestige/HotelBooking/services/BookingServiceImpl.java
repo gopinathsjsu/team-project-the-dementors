@@ -10,7 +10,6 @@ import Prestige.HotelBooking.modals.BookingDTO;
 
 import java.util.Date;
 import java.util.List;
-import Prestige.HotelBooking.commons.Common;
 
 @Service
 public class BookingServiceImpl {
@@ -49,8 +48,19 @@ public class BookingServiceImpl {
 			roomRepository.updateIsAvailable(false, bookingDTO.getHotelId(), bookingDTO.getRoomId());
 		}
 		CustomerRewards custRewards = rewardRepository.getCustomerRewards(bookingDTO.getCustomerId());
-		double rewards = (bookingDTO.getPrice() * 0.1) + (custRewards.getReward());
-		rewardRepository.updateCustomerRewards(rewards,custRewards.getCustomerRewardsId());
+		double rewards;
+		if (custRewards != null){
+			 rewards = (bookingDTO.getPrice() * 0.1) + (custRewards.getReward());
+			rewardRepository.updateCustomerRewards(rewards,custRewards.getCustomerRewardsId());
+		}else {
+			rewards = (bookingDTO.getPrice() * 0.1);
+			CustomerRewards reward  = new CustomerRewards();
+			reward.setReward(rewards);
+			reward.setCustomer(customer);
+			rewardRepository.save(reward);
+		}
+
+		System.out.println("**** Booking DTO"+ booking.getRoom());
 		return bookingRepository.save(booking);
 	}
 	
