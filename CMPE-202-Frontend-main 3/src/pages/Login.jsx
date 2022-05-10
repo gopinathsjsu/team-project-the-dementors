@@ -61,23 +61,23 @@ _changeState(){
     
             
   
-    //     var call=new Promise((resolve, reject) =>
-    //     user.authenticateUser(authenticationData, {
-    //      onSuccess: result => resolve(result),
-    //      onFailure: err => reject(err)
-    //     })
+        var call=new Promise((resolve, reject) =>
+        user.authenticateUser(authenticationData, {
+         onSuccess: result => resolve(result),
+         onFailure: err => reject(err)
+        })
        
-    //    );
-    //    call.then(res=>{
-    //        console.log("Res promise",res)
-    //        this._callLogin()
+       );
+       call.then(res=>{
+           console.log("Res promise",res)
+           this._callLogin()
 
-    //       // this.setState({navigate:true})
-    //    }).catch(Err=>{
-    //        console.log("err in promise",Err)
-    //        alert("Incorrect username or password")
-    //    })
-    this._callLogin()
+          // this.setState({navigate:true})
+       }).catch(Err=>{
+           console.log("err in promise",Err)
+           alert("Incorrect username or password")
+       })
+    //this._callLogin()
   
 
     }
