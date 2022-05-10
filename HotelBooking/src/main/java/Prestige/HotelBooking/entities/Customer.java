@@ -51,7 +51,7 @@ public class Customer {
 
 	private String emailId;
 	
-	@OneToOne(mappedBy="customer", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(mappedBy="customer")
 	private CustomerRewards customerRewards;
 	
 	@OneToMany(fetch = FetchType.EAGER, mappedBy="customer",cascade = CascadeType.ALL, orphanRemoval = true)

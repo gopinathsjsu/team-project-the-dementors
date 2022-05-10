@@ -12,5 +12,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 
 	
 	@Query(value = "Select * from customer WHERE customer_id=:customerId", nativeQuery = true)
-	Customer findById(@Param("customerId") long username);  
+	Customer findById(@Param("customerId") long customerId);
 }

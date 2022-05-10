@@ -20,7 +20,7 @@ public class CustomerRewards {
 	
 	private Double reward;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="cust_id", referencedColumnName = "customerId")
 	private Customer customer;
 
