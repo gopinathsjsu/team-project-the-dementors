@@ -17,7 +17,7 @@
 <img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg" alt="React" width="48" height="48"/>
 </p>
 
-#### Project Files:
+### Project Files:
 1. [Architecture Diagram](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/Architechture%20Diagram.pdf)
 2. [Class Diagram](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/Class%20Diagram.png)
 3. [DB Design](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/DatabaseDesign_23032022.pdf)
