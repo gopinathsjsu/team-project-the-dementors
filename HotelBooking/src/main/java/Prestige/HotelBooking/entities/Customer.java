@@ -7,6 +7,8 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "customer")
@@ -49,17 +51,18 @@ public class Customer {
 
 	private String emailId;
 	
-	@OneToMany(mappedBy="customer")
-	private List<CustomerRewards> customerRewards;
+	@OneToOne(mappedBy="customer", cascade = CascadeType.ALL, orphanRemoval = true)
+	private CustomerRewards customerRewards;
 	
-	@OneToMany(mappedBy="customer")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="customer",cascade = CascadeType.ALL, orphanRemoval = true)
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<Booking> booking;
 	
-	public List<CustomerRewards> getCustomerRewards() {
+	public CustomerRewards getCustomerRewards() {
 		return customerRewards;
 	}
 
-	public void setCustomerRewards(List<CustomerRewards> customerRewards) {
+	public void setCustomerRewards(CustomerRewards customerRewards) {
 		this.customerRewards = customerRewards;
 	}
 

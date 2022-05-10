@@ -25,6 +25,7 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
     void updateNumberOfAvailableRooms(@Param("num") int num, @Param("hotelId") long hotelId,@Param("roomId") long roomId);
 
     @Modifying(clearAutomatically = true)
+    @Transactional
     @Query(value = "UPDATE room SET is_available=:value WHERE hotel_id=:hotelId AND room_id=:roomId", nativeQuery = true)
     void updateIsAvailable(@Param("value") boolean value, @Param("hotelId") long hotelId,@Param("roomId") long roomId);
 

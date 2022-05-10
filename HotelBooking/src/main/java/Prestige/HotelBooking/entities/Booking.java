@@ -37,15 +37,15 @@ public class Booking {
 
 	private float price;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="cust_id", referencedColumnName = "customerId")
 	private Customer customer;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="hotel_id", referencedColumnName = "hotelId")
 	private Hotel hotel;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="room_id", referencedColumnName = "roomId")
 	private Room room;
 
