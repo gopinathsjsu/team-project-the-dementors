@@ -7,19 +7,23 @@ import axios from 'axios';
 
 function Profile(){
     const [profile,setProfile]= useState(data);
+    const fname=localStorage.getItem("username");
+    const lname=localStorage.getItem("lastName");
+    const rewards=localStorage.getItem("rewards");
+    const email=localStorage.getItem("email");
     return(
         <div style={{height:'100vh',backgroundImage: `url(${background})` ,backgroundSize:"cover" }}>
             <NavBarComponent/>
             <div 
             style={{justifyContent:'center',alignItems:"center",display:"flex",fontSize:40,color:'whiteSmoke',marginLeft:'-50px',marginTop:'200px'}}
             >
-                First Name: {profile.customer.firstName}
+                First Name: {fname}
                 <br/>
-                Last Name: {profile.customer.lastName}
+                Last Name: {lname}
                 <br/>
-                Reward points: {profile.customer.customerRewards[1]}
+                Reward points: {rewards}
                 <br/>
-                Email: {profile.customer.emailId}
+                Email: {email}
                 <br/>
             </div>
             <div style={{justifyContent:'center',alignItems:"center",display:"flex"}}>

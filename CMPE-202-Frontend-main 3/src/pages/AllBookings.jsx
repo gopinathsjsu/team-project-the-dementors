@@ -1,11 +1,13 @@
 import React, { Component,useState,Fragment } from "react";
 import NavBarComponent from "../components/NavBar";
-import data from "./allbookings-data.json";
+// import data from "./allbookings-data.json";
 import moment from 'moment';
 import ReadOnlyRow from "../components/ReadOnlyRow";
 import EditableRow from "../components/EditableRow";
 
 function AllBookings(){
+let data = JSON.parse(localStorage.getItem('allbookings'));
+console.log("1233456567",data);
 const [book,setBooking]= useState(data);
 const [editbookingId,setEditbookingId] = useState(null);
 const [editFormData, seteditFormData] = useState({
@@ -22,6 +24,7 @@ const handleEditClick = (event , b)=>{
     }
     seteditFormData(formValues);
 }
+
 const handleEditFormChange = (event)=>{
     event.preventDefault();
     const fieldName = event.target.getAttribute("name");
@@ -31,6 +34,7 @@ const handleEditFormChange = (event)=>{
     newFormData[fieldName] = fieldValue;
     seteditFormData(newFormData); 
 }
+
 const handleEditFormSubmit = (event)=>{
     event.preventDefault();
     const editedRow = {
@@ -38,15 +42,48 @@ const handleEditFormSubmit = (event)=>{
         bookingToDate: (moment(editFormData.bookingToDate).format('YYYY-MM-DD')) +  "T00:00:00.000+00:00"
     }
     const newUpdatedRow = [...book];
+    // let customerId = 0, hotelId = 0,amenities="",roomId=0,price=0,numOfRooms=0;
     for(let i =0;i< newUpdatedRow.length;i++){
         if(newUpdatedRow[i].bookingId===editbookingId){
             newUpdatedRow[i].bookingFromDate = editedRow.bookingFromDate;
             newUpdatedRow[i].bookingToDate = editedRow.bookingToDate;
+            // newUpdatedRow[i].amenities = 
         }
     }
-    // console.log(newUpdatedRow);
+    console.log(newUpdatedRow);
     setBooking(newUpdatedRow);
     setEditbookingId(null);
+    // React.useEffect(() => {
+    //     const requestOptions = {
+    //                 method: 'PUT',
+    //                 headers: { 'Content-Type': 'application/json' },
+    //                 body: JSON.stringify({
+    //                     "bookingFromDate": newUpdatedRow[i],
+    //                     "bookingToDate": "13-05-2022",
+    //                     "customerId": 2,
+    //                     "hotelId": 1,
+    //                     "amenities": "Continental Breakfast,Jacuzzi",
+    //                     "roomId": 3,
+    //                     "price": 310,
+    //                     "numOfRooms": 1
+    //                 })
+    //             };
+    //             fetch('http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/updateBooking/10', requestOptions)
+    //         .then(response => response.json())
+    //         .then(data => setPostId(data.id));
+    // })
+    //     // POST request using fetch inside useEffect React hook
+    //     const requestOptions = {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ title: 'React Hooks POST Request Example' })
+    //     };
+    //     fetch('https://reqres.in/api/posts', requestOptions)
+    //         .then(response => response.json())
+    //         .then(data => setPostId(data.id));
+    
+    // // empty dependency array means this effect will only run once (like componentDidMount in classes)
+    // }, []);
 }
 
 const handleCancelClick = (event) =>{

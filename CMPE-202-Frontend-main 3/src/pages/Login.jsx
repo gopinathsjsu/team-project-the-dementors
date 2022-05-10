@@ -77,23 +77,35 @@ _changeState(){
    
     // }
     //     )
-        var call=new Promise((resolve, reject) =>
-        user.authenticateUser(authenticationData, {
-         onSuccess: result => resolve(result),
-         onFailure: err => reject(err)
-        })
+    //     var call=new Promise((resolve, reject) =>
+    //     user.authenticateUser(authenticationData, {
+    //      onSuccess: result => resolve(result),
+    //      onFailure: err => reject(err)
+    //     })
        
-       );
-       call.then(res=>{
-           console.log("Res promise",res)
-           this._callLogin()
+    //    );
+    //    call.then(res=>{
+    //        console.log("Res promise",res)
+    //        this._callLogin()
 
-          // this.setState({navigate:true})
-       }).catch(Err=>{
-           console.log("err in promise",Err)
-           alert("Incorrect username or password")
-       })
-  
+    //       // this.setState({navigate:true})
+    //    }).catch(Err=>{
+    //        console.log("err in promise",Err)
+    //        alert("Incorrect username or password")
+    //    })
+
+    // User
+    // sampletest01@gmail.com
+    // Qwerty@123
+
+    // User
+    // ramya.mahesh@sjsu.edu
+    // ramya123
+
+    // Employee
+    // anusha.gangasani@sjsu.edu
+    // anusha123
+        this._callLogin();
 
     }
     _callLogin(){
@@ -106,18 +118,44 @@ _changeState(){
             console.log("Res",res)
            if(res && res.data && res.data.userId){
                var username="";
+               var lastName = "";
+               var email = "";
+               var hotelId = 0;
+               var allbookings = [];
                var rewards=0;
-               if(res.data.customer && res.data.customer.firstName){
-                   username=res.data.customer.firstName
+               if(res.data.customer && res.data.customer.firstName  && res.data.userRole!="customer"){
+                username = res.data.employee.employeeId;
+                hotelId = res.data.employee.hotelId;
+                }
+               if(res.data.customer && res.data.customer.firstName && res.data.userRole=="customer"){
+                   username = res.data.customer.firstName;
+                   lastName = res.data.customer.lastName;
+                   rewards = res.data.customer.customerRewards[0].reward;
+                   email = res.data.customer.emailId;
+                   allbookings = res.data.customer.booking;
                }
+               else{
+                hotelId = res.data.employee.hotelId;
+               }
+               
                if(res.data.customer && res.data.customer.customerRewards &&res.data.customer.customerRewards.length>0 ){
                 //rewards=res.data.customer.firstName
             }
+            console.log("Login",hotelId);
+            console.log("Login allbookings",allbookings[0]);
+            // console.log("All book - in log -Ashika",allbookings[0]);
                localStorage.setItem("username",username)
-               if(res.data.userRole=="Customer"){
+               localStorage.setItem("lastName",lastName)
+               localStorage.setItem("rewards",rewards)
+               localStorage.setItem("email",email)
+               localStorage.setItem("allbookings",JSON.stringify(allbookings))
+               localStorage.setItem("hotelId",hotelId)
+               if(res.data.userRole==="customer"){
                    this.props.history.push("search")
-
-               }
+                }
+                else{
+                    this.props.history.push("customerlist")
+                }
                
            }
         }).catch(err=>{
