@@ -17,6 +17,12 @@
 <img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg" alt="React" width="48" height="48"/>
 </p>
 
+#### Project Files:
+1. [Architecture Diagram](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/Architechture%20Diagram.pdf)
+2. [Class Diagram](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/Class%20Diagram.png)
+3. [DB Design](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/DatabaseDesign_23032022.pdf)
+4. [Wireframes](https://github.com/gopinathsjsu/team-project-the-dementors/tree/main/Wireframes)
+
 ### Team Member Contributions:
 #### 1. Anusha Gangasani:    
 #### 2. Ashika Anand Babu:  
@@ -64,8 +70,3 @@
 13. If you are an employee, login and view all the bookings of an hotel as: <img width="1440" alt="image" src="https://user-images.githubusercontent.com/61357783/167718994-04a312b0-a12a-47fc-8814-820ee69d1813.png">
 
 
-#### Other Files:
-1. [Architecture Diagram](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/Architechture%20Diagram.pdf)
-2. [Class Diagram](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/Class%20Diagram.png)
-3. [DB Design](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/DatabaseDesign_23032022.pdf)
-4. [Wireframes](https://github.com/gopinathsjsu/team-project-the-dementors/tree/main/Wireframes)
