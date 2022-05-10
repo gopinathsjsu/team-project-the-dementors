@@ -27,7 +27,7 @@ function   BookingDetails(props){
     const hotelId=location.state.state.hotelId
     
     const link=localStorage.getItem("hotelImg");
-    console.log("params-->",params,hotelId)
+    console.log("params-->",params,hotelId,localStorage.getItem("custId"),typeof(hotelId))
   
     const[isBreakfastChecked,setBreakfastChecked]=React.useState(false);
     const[isFitnessChecked,setFitnessChecked]=React.useState(false);
@@ -265,10 +265,10 @@ function   BookingDetails(props){
                 "bookingFromDate": sd,
                 "bookingToDate": ed,
                
-                "roomId": 17,
+                "roomId": params.roomId,
                 "price": totalPrice,
                 "numOfRooms": parseInt(room),
-                "customerId": 3,
+                "customerId": 35,
                 "hotelId": hotelId,
                 "amenities": amenitiesString,
                

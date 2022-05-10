@@ -48,6 +48,7 @@ _callSaveCustomer(userId){
     console.log("Res from saveCustomer",res)
     
     alert("User registration success")
+    this.props.history.push("/")
 
   }).catch(err=>{
     console.log("Err==>",err)
