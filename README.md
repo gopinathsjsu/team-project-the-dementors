@@ -37,7 +37,13 @@
 
 
 ### XP values followed: 
-1.
+1.Communication
+2. Feedback
+3. Simplicity
+4. Sit together
+5. Pair programming
+6. 2-weeks sprint/bi-weekly cycle
+     
 ### Design Patterns:
 1. MVC
 
