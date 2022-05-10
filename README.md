@@ -1,5 +1,5 @@
 # Team Dementors : 
-#### [Github](https://github.com/gopinathsjsu/team-project-the-dementors/) | [Sprint Sheet](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/CMPE-202%20Sprint%20Team%20Dementors.xlsx) | [Project Journal](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/CMPE-202%20Sprint%20Team%20Dementors.xlsx)
+#### [Github](https://github.com/gopinathsjsu/team-project-the-dementors/) | [Sprint Sheet](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/Sprint%20Sheet%20Team%20Dementors.xlsx) | [Project Journal](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/CMPE-202%20Sprint%20Team%20Dementors.xlsx)
 ### Team Members:    
 1. Ashika Anand Babu   
 2. Ramya Mahesh   
