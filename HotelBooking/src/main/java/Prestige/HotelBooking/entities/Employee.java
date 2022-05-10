@@ -27,6 +27,16 @@ public class Employee {
 	
 	private int employeeAge;
 	
+	private long hotelId;
+	
+	public long getHotelId() {
+		return hotelId;
+	}
+
+	public void setHotelId(long hotelId) {
+		this.hotelId = hotelId;
+	}
+
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "emp_user_id", referencedColumnName = "userId")
 	private User user;

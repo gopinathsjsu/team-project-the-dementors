@@ -3,13 +3,22 @@ package Prestige.HotelBooking.modals;
 
 public class EmployeeDTO {
 
+	
+	private long employeeId;
+	
 	private String employeeEmail;
 	
 	private int employeeAge;
 	
-	private long userId;
+	private long hotelId;
 
+	public long getEmployeeId() {
+		return employeeId;
+	}
 
+	public void setEmployeeId(long employeeId) {
+		this.employeeId = employeeId;
+	}
 
 	public String getEmployeeEmail() {
 		return employeeEmail;
@@ -27,12 +36,15 @@ public class EmployeeDTO {
 		this.employeeAge = employeeAge;
 	}
 
-	public long getUserId() {
-		return userId;
+	public long getHotelId() {
+		return hotelId;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setHotelId(long hotelId) {
+		this.hotelId = hotelId;
 	}
+
+
+
 
 }
