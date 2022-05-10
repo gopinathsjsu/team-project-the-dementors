@@ -85,6 +85,7 @@ function HotelList(props){
     
 
     return(
+        <body style={{backgroundColor:"#F5F5F5"}}>
         <div style={{height:'100vh',backgroundColor:"#F5F5F5"}}>
         <NavBarComponent/>
         <DisplayHotelDetails place={place} startDate={startDate} endDate={endDate} children={children} adult={adult} room={room} />
@@ -130,6 +131,7 @@ function HotelList(props){
                                         <button onClick={()=>{
                                           //let history = useHistory();
                                           //history.push("hoteldetails");
+                                          localStorage.setItem("hotel_name",ele.hotelName)
                                           localStorage.setItem("hotelImg",ele.image);
                                           history.push('/hoteldetails',{details:ele})
                                         }} style={{backgroundColor:"#1c1c1c",padding:5,color:"white",fontWeight:"bold",borderRadius:5}}>View Details</button>
@@ -144,6 +146,7 @@ function HotelList(props){
 
         </div>
         </div>
+        </body>
     
     )
 }

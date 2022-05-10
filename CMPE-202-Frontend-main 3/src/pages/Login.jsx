@@ -115,7 +115,7 @@ _changeState(){
                 localStorage.setItem("rewards",rewards);
                 localStorage.setItem("rewardId",rewardId);
             }
-               if(res.data.customer && res.data.customer.firstName  &&  res.data.userRole.toLowerCase()!="customer"){
+               if(res.data.customer && res.data.customer &&  res.data.userRole.toLowerCase()!="customer"){
                 username = res.data.employee ? res.data.employee.employeeId:"";
                 hotelId = res.data.employee ?res.data.employee.hotelId:1;
                 }
@@ -189,6 +189,16 @@ _changeState(){
                     this.setState({loading:true})
                 }}
                 style={{alignSelf:'center',marginTop:30,width:'70%'}} type="button" className="btn btn-primary btn-block">Submit</button>
+               </div>
+               <div style={{textAlign:"center",marginTop:10,display:"flex",flexDirection:"row",justifyContent:"center"}}>
+                   <div style={{fontFamily:"monospace",fontSize:14}}>
+                       New User?
+                   </div>
+                   <div 
+                   onClick={()=>this.props.history.push("/signup")}
+                   style={{color:"blue",fontSize:14,fontFamily:"monospace",textDecoration:"underline"}}>
+                       Register
+                   </div>
                </div>
                 
             </form>

@@ -211,7 +211,7 @@ _callRegistrationApi=()=>{
                     }}
                     style={{borderColor:"transparent",backgroundColor:"transparent",fontSize:10}} type="password" className="form-control" placeholder="Password" />
                 </div>
-                <Select
+                {/* <Select
                placeholder={"User Type"}
                styles={colourStyles}
 
@@ -224,7 +224,7 @@ _callRegistrationApi=()=>{
 
                options={ this.state.hotelList } onChange={(t)=>{
                    this.setState({hotelSelected:t.label})
-               }} />:null}
+               }} />:null} */}
 
                
 <div style={{width:'100%',alignContent:"center",display:"flex",flexDirection:"column"}}>
