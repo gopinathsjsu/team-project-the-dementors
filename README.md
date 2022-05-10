@@ -20,7 +20,7 @@
 ### Project Files:
 1. [Architecture Diagram](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/Architechture%20Diagram.pdf)
 2. [Class Diagram](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/Class%20Diagram.png)
-3. [DB Design](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/DatabaseDesign_23032022.pdf)
+3. [DB Design](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/updated-database-design.pdf)
 4. [Wireframes](https://github.com/gopinathsjsu/team-project-the-dementors/tree/main/Wireframes)
 
 ### Team Member Contributions:
