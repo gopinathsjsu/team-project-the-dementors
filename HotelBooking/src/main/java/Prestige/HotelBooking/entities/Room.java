@@ -29,16 +29,8 @@ public class Room {
     @JoinColumn(name="hotel_id", referencedColumnName = "hotelId")
     private Hotel hotel;
 
-    @OneToOne(mappedBy = "room")
-    private Booking booking;
-    
-	public Booking getBooking() {
-		return booking;
-	}
-
-	public void setBooking(Booking booking) {
-		this.booking = booking;
-	}
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="room",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Booking> booking;
 
 	public Hotel getHotel() {
         return hotel;
@@ -110,5 +102,13 @@ public class Room {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<Booking> getBooking() {
+        return booking;
+    }
+
+    public void setBooking(List<Booking> booking) {
+        this.booking = booking;
     }
 }

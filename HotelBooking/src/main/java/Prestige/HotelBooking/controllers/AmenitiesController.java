@@ -44,15 +44,16 @@ public class AmenitiesController {
             rId = Long.parseLong(roomId);
         }
 
-          if (hId!=0 && rId!=0){
-              List<String> amenities = amenitiesService.findRoomAmenityList(hId,rId);
-              if (amenities.size()>0){
-                  return new ResponseEntity<List<String>> (amenities, HttpStatus.OK);
-
-              }else{
-                  return new ResponseEntity<String>("No amenities found for the room " , HttpStatus.BAD_REQUEST);
-              }
-          }else if (hId!=0){
+//          if (hId!=0 && rId!=0){
+//              List<String> amenities = amenitiesService.findRoomAmenityList(hId,rId);
+//              if (amenities.size()>0){
+//                  return new ResponseEntity<List<String>> (amenities, HttpStatus.OK);
+//
+//              }else{
+//                  return new ResponseEntity<String>("No amenities found for the room " , HttpStatus.BAD_REQUEST);
+//              }
+//          }else
+         if (hId!=0){
               List<String> amenities = amenitiesService.findHotelAmenity(hId);
               if (amenities.size()>0){
                   return new ResponseEntity<List<String>> (amenities, HttpStatus.OK);

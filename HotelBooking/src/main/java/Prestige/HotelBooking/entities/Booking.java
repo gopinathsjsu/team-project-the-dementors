@@ -45,7 +45,7 @@ public class Booking {
 	@JoinColumn(name="hotel_id", referencedColumnName = "hotelId")
 	private Hotel hotel;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch= FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn(name="room_id", referencedColumnName = "roomId")
 	private Room room;
 
