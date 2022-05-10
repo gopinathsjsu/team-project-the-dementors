@@ -1,6 +1,7 @@
 package Prestige.HotelBooking.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class Room {
     private Hotel hotel;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy="room",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Booking> booking;
 
 	public Hotel getHotel() {
