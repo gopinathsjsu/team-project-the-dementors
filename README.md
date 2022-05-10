@@ -42,3 +42,17 @@
 1. MVC
 
 ### Project Flow:
+1. Our web application starts at:
+<img width="1440" alt="image" src="https://user-images.githubusercontent.com/61357783/167717064-89a5ba77-716f-43fe-b29d-dd78848abb06.png">
+2. We can register an user or login
+3. On login: we are presented with search page:     <img width="1440" alt="image" src="https://user-images.githubusercontent.com/61357783/167717379-7b90a5fe-cc45-41ae-a4d1-3012b4810834.png">    
+4. Select your city, rooms, dates and continue search - we are provided an option to select the hotel from list of hotels:     <img width="1440" alt="image" src="https://user-images.githubusercontent.com/61357783/167717639-c2f116ec-097b-42e8-bd00-e41b4bec50f9.png">.    
+5. Select the hotel of your choice and then select the type of room here:    <img width="1440" alt="image" src="https://user-images.githubusercontent.com/61357783/167717774-f1760e38-465e-4f8a-aae8-996ab84da5d8.png">     
+6. After selecting the type of room, select the amenities you need and if you would like to book using rewards points:    <img width="1440" alt="image" src="https://user-images.githubusercontent.com/61357783/167718209-ab0a8272-23ef-458b-b338-8df1dabcbe02.png">    
+7. Chechout and confirm booking:    <img width="1440" alt="image" src="https://user-images.githubusercontent.com/61357783/167718279-419e1901-70d3-4185-966e-31fb99c55b7a.png">    
+8. You can manage all your bookings at:     <img width="1440" alt="image" src="https://user-images.githubusercontent.com/61357783/167718428-cc0c0d2f-35c4-4ada-89c0-e769cae39ce5.png">
+9. Edit booking date: <img width="1440" alt="image" src="https://user-images.githubusercontent.com/61357783/167718628-910d3846-1985-4163-8c76-9e3b4f10a805.png">
+10. Delete bookings: <img width="1440" alt="image" src="https://user-images.githubusercontent.com/61357783/167718745-423f3d16-1461-465b-b973-463ebc679681.png">
+11. View your profile: <img width="1440" alt="image" src="https://user-images.githubusercontent.com/61357783/167718817-c442b126-8935-49a1-9177-7353fdcf8a3b.png">
+12. Sign out
+13. If you are an employee, login and view all the bookings of an hotel as: <img width="1440" alt="image" src="https://user-images.githubusercontent.com/61357783/167718994-04a312b0-a12a-47fc-8814-820ee69d1813.png">
