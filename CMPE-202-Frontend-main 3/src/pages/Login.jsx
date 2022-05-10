@@ -39,7 +39,7 @@ componentDidUpdate(prevState){
         //alert("Registartion successfull")
 
         //callLoginAPi
-        this.props.history.push("/search")
+        //this.props.history.push("/search")
     }
 }
 _changeState(){
@@ -103,13 +103,17 @@ _changeState(){
                var email = "";
                var hotelId = 0;
                var allbookings = [];
+               var rewardId;
               
                if(res.data.customer && res.data.customer.firstName && res.data.userRole.toLowerCase()=="customer"){
                 username = res.data.customer.firstName;
                 lastName = res.data.customer.lastName ?res.data.customer.lastName:"" ;
-                rewards =  res.data.customer.customerRewards &&  res.data.customer.customerRewards.length>0 && res.data.customer.customerRewards[0].reward?res.data.customer.customerRewards[0].reward:0;
+                rewards =  res.data.customer.customerRewards  && res.data.customer.customerRewards.reward?res.data.customer.customerRewards.reward:0;
+                rewardId=res.data.customer.customerRewards && res.data.customer.customerRewards.customerRewardsId?res.data.customer.customerRewards.customerRewardsId:0;
                 email = res.data.customer && res.data.customer.emailId?res.data.customer.emailId:"";
                 allbookings = res.data.customer.booking;
+                localStorage.setItem("rewards",rewards);
+                localStorage.setItem("rewardId",rewardId);
             }
                if(res.data.customer && res.data.customer.firstName  &&  res.data.userRole.toLowerCase()!="customer"){
                 username = res.data.employee ? res.data.employee.employeeId:"";

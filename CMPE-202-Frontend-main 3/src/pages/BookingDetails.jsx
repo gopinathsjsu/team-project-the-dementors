@@ -19,6 +19,9 @@ function   BookingDetails(props){
     const adult=localStorage.getItem("adult")|| "";
     const children=localStorage.getItem("children")|| "";
     const room=localStorage.getItem("room")|| "";
+    const reward=localStorage.getItem("rewards")||0;
+    const rewardId=localStorage.getItem("rewardId")||0
+    const custId=localStorage.getItem("custId")
     
    
     const guests=parseInt(adult)+parseInt(children);
@@ -78,6 +81,8 @@ function   BookingDetails(props){
    })
   
   }, []);
+  
+ 
     const rewardPts=50;
     const start=moment(startDate,'DD/MM/YYYY').format("YYYY-MM-DD");
     const end=moment(endDate,"DD/MM/YYYY").format("YYYY-MM-DD");
@@ -88,6 +93,8 @@ function   BookingDetails(props){
     const history=useHistory()
     const sd=moment(start,"YYYY-MM-DD").format("DD-MM-YYYY")
     const ed=moment(end,"YYYY-MM-DD").format("DD-MM-YYYY")
+
+   
   
    
     
@@ -268,7 +275,7 @@ function   BookingDetails(props){
                 "roomId": params.roomId,
                 "price": totalPrice,
                 "numOfRooms": parseInt(room),
-                "customerId": 35,
+                "customerId": custId,
                 "hotelId": hotelId,
                 "amenities": amenitiesString,
                
@@ -277,7 +284,21 @@ function   BookingDetails(props){
             console.log("body-->",body)
             axios.post(url,body).then(response=>{
               console.log("Response from post-->",response);
-              history.push("/confirm")
+              if(isRewardsChecked){
+                // var url=`http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/updateCustomerReward/${rewardId}`;
+                // const body={
+                //   "rewards":reward,
+                //   "customer_rewardId":rewardId
+                  
+                // }
+                // axios.post(url,body).then(res=>{
+                //   console.log("res-->",res)
+                // }).catch(err=>{
+                //   console.log("Err==>",err)
+                // })
+                
+              }
+              //history.push("/confirm")
               
             }).catch(err=>{
               console.log("err",err)
