@@ -253,8 +253,8 @@ INSERT INTO customer(customer_id, cust_user_id, email_id, first_name, last_name)
 (2,2,'hello@gmail.com', 'Hello', 'There'),
 (3,3,'ashika.anand@gmail.com','Ashika','Anand');
 
-INSERT INTO employee(employee_id, employee_age, employee_email, emp_user_id) VALUES
-(1,20,'anusha.gangasani@sjsu.edu',2);
+INSERT INTO employee(employee_id, employee_age, employee_email, emp_user_id, hotel_id) VALUES
+(1,20,'anusha.gangasani@sjsu.edu',2,1);
 
 INSERT INTO customer_rewards(customer_rewards_id, reward, cust_id) VALUES
 (1,500,1),
