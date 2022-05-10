@@ -103,7 +103,17 @@ _changeState(){
             "password":this.state.password
         }
         axios.post(url,body).then(res=>{
+            console.log("Res",res)
            if(res && res.data && res.data.userId){
+               var username="";
+               var rewards=0;
+               if(res.data.customer && res.data.customer.firstName){
+                   username=res.data.customer.firstName
+               }
+               if(res.data.customer && res.data.customer.customerRewards &&res.data.customer.customerRewards.length>0 ){
+                //rewards=res.data.customer.firstName
+            }
+               localStorage.setItem("username",username)
                if(res.data.userRole=="Customer"){
                    this.props.history.push("search")
 

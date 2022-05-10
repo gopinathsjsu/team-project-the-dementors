@@ -38,11 +38,12 @@ export default class Register extends Component{
 _callSaveCustomer(userId){
   var url="http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/saveCustomer";
   const body={
-    "userId":userId,
-    "firstName":this.state.firstName,
-    "lastName":this.state.lastName,
-    "emailId":this.state.emailId
+    "userId":parseInt(userId),
+    "firstName":this.state.fname,
+    "lastName":this.state.lname,
+    "emailId":this.state.email
   }
+  console.log("body-->",body)
   axios.post(url,body).then(res=>{
     console.log("Res from saveCustomer",res)
     

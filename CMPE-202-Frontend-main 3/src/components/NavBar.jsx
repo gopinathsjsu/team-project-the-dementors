@@ -7,6 +7,7 @@ import background from "../assets/loginBg.jpeg";
 
 const NavBarComponent=()=>{
     const history=useHistory();
+    const name=localStorage.getItem("username")
     return(
 
 
@@ -20,7 +21,7 @@ const NavBarComponent=()=>{
    <div style={{display:"flex",flexDirection:"row",alignItems:"center",fontWeight:"bold",fontFamily:"seris",fontSize:14 }}>
 
             <FaUser size={14} color={"#231f20"} style={{marginLeft:5}}/>
-            User
+            {name}
             {/* <h5
              style={{textAlign:"center",alignSelf:"center", color:"#231f20",marginLeft:7,fontFamily:"serif",fontSize:14,fontWeight:"bold"}}
              >
