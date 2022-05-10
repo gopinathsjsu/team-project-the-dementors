@@ -7,7 +7,7 @@ Github: https://github.com/gopinathsjsu/team-project-the-dementors/
 3. Anusha Gangasani    
 4. Shruthi Srinivasan
 
-### Tech Stack
+### Tech Stack:
 <p>
 <img src="https://www.vectorlogo.zone/logos/w3_html5/w3_html5-icon.svg" alt="HTML" width="48" height="48"/>
 <img src="https://www.vectorlogo.zone/logos/w3_css/w3_css-icon.svg" alt="CSS" width="48" height="48"/>
