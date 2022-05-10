@@ -59,24 +59,9 @@ _changeState(){
         Username: this.state.email,
             Password: this.state.password,
         })
-    //     user.authenticateUser(authenticationData,{
+    
             
-    //             onSuccess: function (result) {
-    //                //this._changeState()
-    //             // console.log("result--->",result)
-                
-    //              //this.setState({navigate:true})
-    //              //this.props.history.push("/search")
-    //          },
-    //             onFailure: function(err) {
-    //                 alert("Incorrect username or password")
-    //                 console.log("err--->",err)
-                    
-             
-    //     },
-   
-    // }
-    //     )
+  
     //     var call=new Promise((resolve, reject) =>
     //     user.authenticateUser(authenticationData, {
     //      onSuccess: result => resolve(result),
@@ -93,19 +78,8 @@ _changeState(){
     //        console.log("err in promise",Err)
     //        alert("Incorrect username or password")
     //    })
-
-    // User
-    // sampletest01@gmail.com
-    // Qwerty@123
-
-    // User
-    // ramya.mahesh@sjsu.edu
-    // ramya123
-
-    // Employee
-    // anusha.gangasani@sjsu.edu
-    // anusha123
-        this._callLogin();
+    this._callLogin()
+  
 
     }
     _callLogin(){
@@ -114,43 +88,48 @@ _changeState(){
             "email":this.state.email,
             "password":this.state.password
         }
+        console.log("body-->",body)
+        var user={}
         axios.post(url,body).then(res=>{
             console.log("Res",res)
            if(res && res.data && res.data.userId){
+
+               console.log("id--?")
                var username="";
+               var customerId=""
+               var rewards=0;
+               
                var lastName = "";
                var email = "";
                var hotelId = 0;
                var allbookings = [];
-               var rewards=0;
-               if(res.data.customer && res.data.customer.firstName  && res.data.userRole!="customer"){
-                username = res.data.employee.employeeId;
-                hotelId = res.data.employee.hotelId;
-                }
-               if(res.data.customer && res.data.customer.firstName && res.data.userRole=="customer"){
-                   username = res.data.customer.firstName;
-                   lastName = res.data.customer.lastName;
-                   rewards = res.data.customer.customerRewards[0].reward;
-                   email = res.data.customer.emailId;
-                   allbookings = res.data.customer.booking;
-               }
-               else{
-                hotelId = res.data.employee.hotelId;
-               }
-               
-               if(res.data.customer && res.data.customer.customerRewards &&res.data.customer.customerRewards.length>0 ){
-                //rewards=res.data.customer.firstName
+              
+               if(res.data.customer && res.data.customer.firstName && res.data.userRole.toLowerCase()=="customer"){
+                username = res.data.customer.firstName;
+                lastName = res.data.customer.lastName ?res.data.customer.lastName:"" ;
+                rewards =  res.data.customer.customerRewards &&  res.data.customer.customerRewards.length>0 && res.data.customer.customerRewards[0].reward?res.data.customer.customerRewards[0].reward:0;
+                email = res.data.customer && res.data.customer.emailId?res.data.customer.emailId:"";
+                allbookings = res.data.customer.booking;
             }
-            console.log("Login",hotelId);
-            console.log("Login allbookings",allbookings[0]);
-            // console.log("All book - in log -Ashika",allbookings[0]);
+               if(res.data.customer && res.data.customer.firstName  &&  res.data.userRole.toLowerCase()!="customer"){
+                username = res.data.employee ? res.data.employee.employeeId:"";
+                hotelId = res.data.employee ?res.data.employee.hotelId:1;
+                }
+            
+               if(res.data.customer && res.data.customer.customerId){
+                customerId=res.data.customer.customerId
+            }
+               
+           
+               //localStorage.setItem("username",username)
+               localStorage.setItem("custId",customerId)
                localStorage.setItem("username",username)
                localStorage.setItem("lastName",lastName)
                localStorage.setItem("rewards",rewards)
                localStorage.setItem("email",email)
                localStorage.setItem("allbookings",JSON.stringify(allbookings))
                localStorage.setItem("hotelId",hotelId)
-               if(res.data.userRole==="customer"){
+               if(res.data.userRole.toLowerCase()=="customer"){
                    this.props.history.push("search")
                 }
                 else{

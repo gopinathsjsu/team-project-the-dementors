@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NavBarComponent from "../components/NavBar";
 import background from "../assets/searchBg.jpeg";
 import DisplayHotelDetails from "../components/DisplayHotelDetails";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { FaArrowsAlt } from "react-icons/fa";
 import axios  from "axios";
 //import background from "../assets/searchBg.jpeg";
@@ -19,6 +19,7 @@ function   BookingDetails(props){
     const adult=localStorage.getItem("adult")|| "";
     const children=localStorage.getItem("children")|| "";
     const room=localStorage.getItem("room")|| "";
+    
    
     const guests=parseInt(adult)+parseInt(children);
    
@@ -26,6 +27,7 @@ function   BookingDetails(props){
     const hotelId=location.state.state.hotelId
     
     const link=localStorage.getItem("hotelImg");
+    console.log("params-->",params,hotelId)
   
     const[isBreakfastChecked,setBreakfastChecked]=React.useState(false);
     const[isFitnessChecked,setFitnessChecked]=React.useState(false);
@@ -36,16 +38,17 @@ function   BookingDetails(props){
     const[isRewardsChecked,setRewardsChecked]=React.useState(false)
     const[totalPrice,setTotalPrice]=React.useState(150)
     const[amenities,setAmenities]=React.useState([])
+    const[amenitiesString,setAmenitiesString]=React.useState("")
     
     React.useEffect(() => {
-      console.log("params-->",params,typeof(diff),diff)
+      
       const totalPrice=parseInt(params.roomPrice)*parseInt(room)*diff;
-      console.log("totalprice-->",totalPrice)
+      
       setTotalPrice(totalPrice)
 
       const place=localStorage.getItem("location")|| "";
       
-    const url = `http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getAmenities?hotelId=${1}`;
+    const url = `http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getAmenities?hotelId=${hotelId}`;
     axios.get(url, {headers: {
       'Access-Control-Allow-Origin': '*',
       'Content-Type': 'application/json'
@@ -78,10 +81,13 @@ function   BookingDetails(props){
     const rewardPts=50;
     const start=moment(startDate,'DD/MM/YYYY').format("YYYY-MM-DD");
     const end=moment(endDate,"DD/MM/YYYY").format("YYYY-MM-DD");
-    console.log("start-->",end)
+   
     const imageLink=localStorage.getItem("hotelImg");
-    console.log("imagelink-->",imageLink)
+ 
     const diff=moment(end).diff(moment(start),'days');
+    const history=useHistory()
+    const sd=moment(start,"YYYY-MM-DD").format("DD-MM-YYYY")
+    const ed=moment(end,"YYYY-MM-DD").format("DD-MM-YYYY")
   
    
     
@@ -165,7 +171,7 @@ function   BookingDetails(props){
               arr.splice(idx,1)
             }
             else{
-              console.log("Else-->")
+             
             arr.push(ele.name)
             }
            
@@ -196,9 +202,10 @@ function   BookingDetails(props){
           }
           
         })
-        console.log("string-->",string)
+        setAmenitiesString(string)
+       
 
-      const url=`http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getAmenitiesPrice?hotelId=1&roomId=1&fromDate=${start}&toDate=${end}&amenities=${string}`
+      const url=`http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getAmenitiesPrice?hotelId=1&roomId=${params.roomId}&fromDate=${start}&toDate=${end}&amenities=${string}`
       console.log("url-->",url)
       axios.get(url).then(Res=>{
         console.log("price",Res)
@@ -250,7 +257,35 @@ function   BookingDetails(props){
               
             </div>
             <div style={{width:'30%',display:"flex",justifyContent:"flex-end",marginBottom:5,marginRight:"2%"}}>
-            <button style={{fontWeight:"bold"}} type="button" class="btn btn-warning">Checkout</button>
+            <button
+            onClick={()=>{
+              // 
+              const url="http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/saveBooking"
+              const body={
+                "bookingFromDate": sd,
+                "bookingToDate": ed,
+               
+                "roomId": 17,
+                "price": totalPrice,
+                "numOfRooms": parseInt(room),
+                "customerId": 3,
+                "hotelId": hotelId,
+                "amenities": amenitiesString,
+               
+               
+            }
+            console.log("body-->",body)
+            axios.post(url,body).then(response=>{
+              console.log("Response from post-->",response);
+              history.push("/confirm")
+              
+            }).catch(err=>{
+              console.log("err",err)
+              alert("Please try again!!!")
+            })
+
+            }}
+            style={{fontWeight:"bold"}} type="button" class="btn btn-warning">Checkout</button>
 
 
             </div>

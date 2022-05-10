@@ -8,6 +8,7 @@ import background from "../assets/loginBg.jpeg";
 const NavBarComponent=()=>{
     const history=useHistory();
     const name=localStorage.getItem("username")
+    console.log("name-->",name)
     return(
         <div style={{height:70,backgroundColor:"#F5F5F5",display:'flex',flexDirection:'row',alignItems:'center',width:"100%",borderBottom:1,paddingLeft:10,paddingRight:10}}>
             <div style={{width:"80%",fontSize:45,fontFamily:"cursive",fontWeight:"bold"}}>
