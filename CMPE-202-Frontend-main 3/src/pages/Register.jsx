@@ -5,6 +5,7 @@ import background from "../assets/loginBg.jpeg";
 import Dropdown from 'react-dropdown';
 import Select from 'react-select';
 import UserPool from "../UserPool";
+import axios from "axios";
 
 export default class Register extends Component{
     constructor(){
@@ -34,22 +35,61 @@ export default class Register extends Component{
         hotelSelected:""
         }
     }
+_callSaveCustomer(userId){
+  var url="http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/saveCustomer";
+  const body={
+    "userId":parseInt(userId),
+    "firstName":this.state.fname,
+    "lastName":this.state.lname,
+    "emailId":this.state.email
+  }
+  console.log("body-->",body)
+  axios.post(url,body).then(res=>{
+    console.log("Res from saveCustomer",res)
+    
+    alert("User registration success")
+
+  }).catch(err=>{
+    console.log("Err==>",err)
+  })
+
+
+}
+
+_callRegistrationApi=()=>{
+  var url="http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/register"
+  const body={
+    "email":this.state.email,
+    "password":this.state.password,
+    "userRole":"Customer"
+  }
+  axios.post(url,body).then(res=>{
+    console.log("Res from register",res)
+    if(res && res.data && res.data.userId){
+      this._callSaveCustomer(res.data.userId);
+
+    }
+    
+
+  }).catch(err=>{
+    console.log("Err==>",err)
+  })
+}
+
     onSubmit=(event)=>{
       event.preventDefault();
-      UserPool.signUp(this.state.email,this.state.password,[],null,(err,data)=>{
+  UserPool.signUp(this.state.email,this.state.password,[],null,(err,data)=>{
         if(err){
           console.log("Err",err)
         }
-        console.log("data--->",data)
-        alert("Registration successful")
-        setTimeout(()=>{
-          this.props.history.push("/")
+        else{
+           this._callRegistrationApi()
 
-        },1000)
-       
-        //call registartion api
+  }
+     
+      
 
-      })
+      
       // UserPool.signUp({
       //   //ClientId: process.env.COGNITO_USER_IDENTITY_POOL_CLIENT_ID,
       //   email: this.state.email,
@@ -75,7 +115,7 @@ export default class Register extends Component{
       //     console.log("Err-->",err)
       //   }
       //   console.log("Sucess----->",data)
-      // });
+       });
 
     }
   

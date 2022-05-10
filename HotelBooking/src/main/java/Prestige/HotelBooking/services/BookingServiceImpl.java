@@ -1,21 +1,12 @@
 package Prestige.HotelBooking.services;
 
+import Prestige.HotelBooking.dao.*;
+import Prestige.HotelBooking.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.FalseCondition;
 import org.springframework.stereotype.Service;
 
-import Prestige.HotelBooking.dao.AmenitiesRepository;
-import Prestige.HotelBooking.dao.BookingRepository;
-import Prestige.HotelBooking.dao.CustomerRepository;
-import Prestige.HotelBooking.dao.HotelRepository;
-import Prestige.HotelBooking.dao.RoomRepository;
-import Prestige.HotelBooking.entities.Amenities;
-import Prestige.HotelBooking.entities.Booking;
-import Prestige.HotelBooking.entities.Customer;
-import Prestige.HotelBooking.entities.Hotel;
-import Prestige.HotelBooking.entities.Room;
-import Prestige.HotelBooking.entities.User;
 import Prestige.HotelBooking.modals.BookingDTO;
-import Prestige.HotelBooking.modals.CustomerDTO;
 
 import java.util.Date;
 import java.util.List;
@@ -31,17 +22,17 @@ public class BookingServiceImpl {
 	
 	@Autowired
 	private HotelRepository hotelRepository;
-
-	@Autowired
-	private AmenitiesRepository amenitiesRepository;
 	
 	@Autowired
 	private RoomRepository roomRepository;
+
+	@Autowired
+	private RewardRepository rewardRepository;
+
 	
 	public Booking saveBooking(BookingDTO bookingDTO) {
 		Customer customer = customerRepository.findById(bookingDTO.getCustomerId());
 		Hotel hotel = hotelRepository.findById(bookingDTO.getHotelId());
-		Amenities amenities = amenitiesRepository.findById(bookingDTO.getAmenitiesId());
 		Room room = roomRepository.getRoomDetails(bookingDTO.getRoomId());
 		Booking booking = new Booking();
 		booking.setBookingFromDate(bookingDTO.getBookingFromDate());
@@ -49,8 +40,25 @@ public class BookingServiceImpl {
 		booking.setNumberOfDays(getDifferenceDays(bookingDTO.getBookingFromDate(), bookingDTO.getBookingToDate()));
 		booking.setCustomer(customer);
 		booking.setHotel(hotel);
-		booking.setAmenities(amenities);
+		booking.setAmenities(bookingDTO.getAmenities());
 		booking.setRoom(room);
+		booking.setPrice(bookingDTO.getPrice());
+		roomRepository.updateNumberOfAvailableRooms((room.getNumberOfAvailableRooms()-bookingDTO.getNumOfRooms()),bookingDTO.getHotelId(), bookingDTO.getRoomId());
+		if ((room.getNumberOfAvailableRooms()-bookingDTO.getNumOfRooms()<=0)){
+			roomRepository.updateIsAvailable(false, bookingDTO.getHotelId(), bookingDTO.getRoomId());
+		}
+		CustomerRewards custRewards = rewardRepository.getCustomerRewards(bookingDTO.getCustomerId());
+		double rewards;
+		if (custRewards != null){
+			 rewards = (bookingDTO.getPrice() * 0.1) + (custRewards.getReward());
+			rewardRepository.updateCustomerRewards(rewards,custRewards.getCustomerRewardsId());
+		}else {
+			rewards = (bookingDTO.getPrice() * 0.1);
+			CustomerRewards reward  = new CustomerRewards();
+			reward.setReward(rewards);
+			reward.setCustomer(customer);
+			rewardRepository.save(reward);
+		}
 		return bookingRepository.save(booking);
 	}
 	
@@ -59,12 +67,22 @@ public class BookingServiceImpl {
 	}
 	
 	public Booking updateBooking(BookingDTO bookingDTO, long bookingId) {
+		Customer customer = customerRepository.findById(bookingDTO.getCustomerId());
+		Hotel hotel = hotelRepository.findById(bookingDTO.getHotelId());
+		Room room = roomRepository.getRoomDetails(bookingDTO.getRoomId());
 		Booking booking = bookingRepository.findByBookingId(bookingId);
 		if (booking != null) {
 			booking.setBookingId(bookingId);
 			booking.setBookingFromDate(bookingDTO.getBookingFromDate());
 			booking.setBookingToDate(bookingDTO.getBookingToDate());
 			booking.setNumberOfDays(getDifferenceDays(bookingDTO.getBookingFromDate(), bookingDTO.getBookingToDate()));
+			booking.setHotel(hotel);
+			booking.setAmenities(bookingDTO.getAmenities());
+			booking.setRoom(room);
+			roomRepository.updateNumberOfAvailableRooms((room.getNumberOfAvailableRooms()-bookingDTO.getNumOfRooms()),bookingDTO.getHotelId(), bookingDTO.getRoomId());
+			if ((room.getNumberOfAvailableRooms()-bookingDTO.getNumOfRooms()<=0)){
+				roomRepository.updateIsAvailable(false, bookingDTO.getHotelId(), bookingDTO.getRoomId());
+			}
 			return bookingRepository.save(booking);
 		}
 		return booking;
@@ -74,7 +92,6 @@ public class BookingServiceImpl {
 	public int getDifferenceDays(Date d1, Date d2) {
 	    int daysdiff = 0;
 	    long diff = d2.getTime() - d1.getTime();
-	    System.out.println("dates "+ d2.getTime() + "d1 " + d1.getTime());
 	    long diffDays = diff / (24 * 60 * 60 * 1000);
 	    daysdiff = (int) diffDays;
 	    return daysdiff;

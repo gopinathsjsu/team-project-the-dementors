@@ -18,14 +18,14 @@ import java.util.List;
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
 	@Modifying
     @Transactional
-	@Query(value = "Delete from Booking WHERE booking_id=:bookingId", nativeQuery = true)
+	@Query(value = "Delete from booking WHERE booking_id=:bookingId", nativeQuery = true)
 	void deleteBooking(@Param("bookingId") long bookingId);  
 	
 
-	@Query(value = "Select * from Customer WHERE customer_id=:customerId", nativeQuery = true)
+	@Query(value = "Select * from customer WHERE customer_id=:customerId", nativeQuery = true)
 	Customer findById(@Param("customerId") long username); 
 	
-	@Query(value = "Select * from Booking WHERE booking_id=:bookingId", nativeQuery = true)
+	@Query(value = "Select * from booking WHERE booking_id=:bookingId", nativeQuery = true)
 	Booking findByBookingId(@Param("bookingId") long bookingId);
 
 	@Query(value = "Select * from booking WHERE hotel_id=:hotelId", nativeQuery = true)

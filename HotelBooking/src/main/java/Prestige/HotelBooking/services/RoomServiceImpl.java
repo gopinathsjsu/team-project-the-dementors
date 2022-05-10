@@ -28,14 +28,12 @@ public class RoomServiceImpl {
         return rooms;
     }
 
-    public int updateAvailableRooms(long hotelId, long roomId, int numberOfRooms){
-        int result = roomRepository.updateNumberOfAvailableRooms(numberOfRooms,hotelId,roomId);
-        return result;
+    public void updateAvailableRooms(long hotelId, long roomId, int numberOfRooms){
+         roomRepository.updateNumberOfAvailableRooms(numberOfRooms,hotelId,roomId);
     }
 
-    public int updateIsAvailable(boolean value, long roomId, long hotelId){
-        int result = roomRepository.updateIsAvailable(value,hotelId,roomId);
-        return result;
+    public void updateIsAvailable(boolean value, long roomId, long hotelId){
+         roomRepository.updateIsAvailable(value,hotelId,roomId);
     }
 
 }

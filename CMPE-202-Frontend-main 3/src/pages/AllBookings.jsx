@@ -1,13 +1,75 @@
-import React, { Component,useState } from "react";
+import React, { Component,useState,Fragment } from "react";
 import NavBarComponent from "../components/NavBar";
-import data from "./mock-data.json";
+import data from "./allbookings-data.json";
+import moment from 'moment';
+import ReadOnlyRow from "../components/ReadOnlyRow";
+import EditableRow from "../components/EditableRow";
 
 function AllBookings(){
-const [book,setBook]= useState(data);
+const [book,setBooking]= useState(data);
+const [editbookingId,setEditbookingId] = useState(null);
+const [editFormData, seteditFormData] = useState({
+    bookingFromDate:"",
+    bookingToDate:""
+});
+const handleEditClick = (event , b)=>{
+    event.preventDefault();
+    setEditbookingId(b.bookingId);
+
+    const formValues = {
+        bookingFromDate: b.bookingFromDate,
+        bookingToDate:b.bookingToDate
+    }
+    seteditFormData(formValues);
+}
+const handleEditFormChange = (event)=>{
+    event.preventDefault();
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
+
+    const newFormData = {...editFormData}
+    newFormData[fieldName] = fieldValue;
+    seteditFormData(newFormData); 
+}
+const handleEditFormSubmit = (event)=>{
+    event.preventDefault();
+    const editedRow = {
+        bookingFromDate : (moment(editFormData.bookingFromDate).format('YYYY-MM-DD')) +  "T00:00:00.000+00:00",
+        bookingToDate: (moment(editFormData.bookingToDate).format('YYYY-MM-DD')) +  "T00:00:00.000+00:00"
+    }
+    const newUpdatedRow = [...book];
+    for(let i =0;i< newUpdatedRow.length;i++){
+        if(newUpdatedRow[i].bookingId===editbookingId){
+            newUpdatedRow[i].bookingFromDate = editedRow.bookingFromDate;
+            newUpdatedRow[i].bookingToDate = editedRow.bookingToDate;
+        }
+    }
+    // console.log(newUpdatedRow);
+    setBooking(newUpdatedRow);
+    setEditbookingId(null);
+}
+
+const handleCancelClick = (event) =>{
+    event.preventDefault();
+    setEditbookingId(null);
+}
+
+const handleDeleteClick = (event,bookingId) =>{
+    event.preventDefault();
+    const delRow = [...book];
+    for(let i =0;i<=delRow.length;i++){
+        if(delRow[i].bookingId===bookingId){
+            delRow.splice(i,1);
+            break;
+        }
+    }
+    setBooking(delRow);
+}
   return(
     <div style={{height:'100vh',backgroundSize:"cover",opacity:0.8 }}>
                <NavBarComponent/>
                <div style={{justifyContent:'center',alignItems:"center",display:"flex",fontSize:20,paddingLeft:'50px',paddingRight:'50px',height:'100%'}}>
+               <form onSubmit={handleEditFormSubmit}>
                <table style={{border:'1px solid black'}}>
                   <thead>
                     <tr>
@@ -21,19 +83,27 @@ const [book,setBook]= useState(data);
                   </thead>
                   <tbody>
                       {
-                      book.customer.booking.map(function(b){
-                        return (
-                            <tr key={b.bookingId}>
-                            <td>{b.hotel.hotelName}</td>
-                            <td>{b.room.roomNo}</td>
-                            <td>{b.bookingFromDate}</td>
-                            <td >{b.bookingToDate}</td>
-                            <td >{b.room.roomPrice}</td>
-                            </tr>
-                        );
-                         })}
+                      book.map((b)=>(
+                          <Fragment>
+                              {editbookingId === b.bookingId ? 
+                              (<EditableRow 
+                                b = {b}
+                                editFormData = {editFormData}
+                                handleEditFormChange = {handleEditFormChange}
+                                handleCancelClick = {handleCancelClick}
+                              />
+                              ) : 
+                              (<ReadOnlyRow 
+                                b={b}
+                                handleEditClick = {handleEditClick}
+                                handleDeleteClick = {handleDeleteClick}
+                                />
+                              ) }
+                          </Fragment>
+                         ))}
                   </tbody>
                 </table>
+                </form>
                </div>
       </div>
   );

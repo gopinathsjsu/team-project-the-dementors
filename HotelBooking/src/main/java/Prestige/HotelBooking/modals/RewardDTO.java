@@ -2,15 +2,15 @@ package Prestige.HotelBooking.modals;
 
 public class RewardDTO {
 
-	private String reward;
+	private Double reward;
 	
 	private long customerId;
 
-	public String getReward() {
+	public Double getReward() {
 		return reward;
 	}
 
-	public void setReward(String reward) {
+	public void setReward(Double reward) {
 		this.reward = reward;
 	}
 

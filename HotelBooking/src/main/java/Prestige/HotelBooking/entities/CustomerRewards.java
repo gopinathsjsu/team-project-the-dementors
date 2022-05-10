@@ -23,7 +23,7 @@ public class CustomerRewards {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private long customerRewardsId;
 	
-	private String reward;
+	private Double reward;
 	
 	@ManyToOne
     @JoinColumn(name="cust_id", referencedColumnName = "customerId")
@@ -37,13 +37,6 @@ public class CustomerRewards {
 		this.customerRewardsId = customerRewardsId;
 	}
 
-	public String getReward() {
-		return reward;
-	}
-
-	public void setReward(String reward) {
-		this.reward = reward;
-	}
 
 	public Customer getCustomer() {
 		return customer;
@@ -53,5 +46,12 @@ public class CustomerRewards {
 		this.customer = customer;
 	}
 
-	
+
+	public Double getReward() {
+		return reward;
+	}
+
+	public void setReward(Double reward) {
+		this.reward = reward;
+	}
 }

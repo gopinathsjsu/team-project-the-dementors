@@ -25,6 +25,7 @@ const DisplayHotelDetails=(props)=>{
   
 };
  const guests=parseInt(props.adult)+parseInt(props.children);
+
     return(
 
 

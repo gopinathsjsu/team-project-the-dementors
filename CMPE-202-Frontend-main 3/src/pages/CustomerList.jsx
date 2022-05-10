@@ -1,8 +1,28 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import NavBarComponent from "../components/NavBar";
 import axios from 'axios';
+import moment from 'moment';
+import data from "./allcustomer-data.json";
 
 function CustomerList(){
+  const [allcustomers,setCustomer]= useState([]);
+
+  React.useEffect(() => {
+  const url = `http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getHotelBooking?hotelId=1`;
+  axios.get(url, {headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'application/json' 
+  }}).then(res=>{
+     console.log("response--->",res)
+     if(res && res.data && res.data.length>0){
+         console.log("res.data",res.data)
+         setCustomer(res.data);
+     }
+}).catch(err=>{
+     console.log("Err-->",err)
+ })
+}, []);
+
   return(
     <div style={{height:'100vh',backgroundSize:"cover",opacity:0.8 }}>
                <NavBarComponent/>
@@ -14,15 +34,22 @@ function CustomerList(){
                       <th>Customer Room</th>
                       <th>Check in Date</th>
                       <th>Check out Date</th>
+                      <th>Price</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Test</td>
-                      <td>503</td>
-                      <td>1 July 2022</td>
-                      <td>2 July 2022</td>
-                    </tr>
+                      {
+                      allcustomers.map(function(c){
+                        return (
+                            <tr key={c.customer.customerId}>
+                            <td>{(c.customer.firstName) + " " + (c.customer.lastName)}</td>
+                            <td>{c.room.roomNo}</td>
+                            <td>{moment(c.bookingFromDate).format('MM/DD/yy')}</td>
+                            <td>{moment(c.bookingToDate).format('MM/DD/yy')}</td>
+                            <td>{c.price}</td>
+                            </tr>
+                        );
+                         })}
                   </tbody>
                 </table>
                </div>

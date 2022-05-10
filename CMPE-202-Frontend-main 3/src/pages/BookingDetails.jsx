@@ -4,8 +4,10 @@ import background from "../assets/searchBg.jpeg";
 import DisplayHotelDetails from "../components/DisplayHotelDetails";
 import { useLocation } from "react-router-dom";
 import { FaArrowsAlt } from "react-icons/fa";
+import axios  from "axios";
 //import background from "../assets/searchBg.jpeg";
 import "../css/style.css";
+import moment from "moment";
 
 
 function   BookingDetails(props){
@@ -17,11 +19,14 @@ function   BookingDetails(props){
     const adult=localStorage.getItem("adult")|| "";
     const children=localStorage.getItem("children")|| "";
     const room=localStorage.getItem("room")|| "";
-    console.log("children-->",children)
+   
     const guests=parseInt(adult)+parseInt(children);
    
-    const params=location.state.state.detail
-    console.log("this.props---->",params)
+    const params=location.state.state.detail;
+    const hotelId=location.state.state.hotelId
+    
+    const link=localStorage.getItem("hotelImg");
+  
     const[isBreakfastChecked,setBreakfastChecked]=React.useState(false);
     const[isFitnessChecked,setFitnessChecked]=React.useState(false);
     const[isSwimmingPoolChecked,setSwimmingPoolChecked]=React.useState(false);
@@ -30,20 +35,55 @@ function   BookingDetails(props){
     const[checkedItems,setCheckedItems]=React.useState([])
     const[isRewardsChecked,setRewardsChecked]=React.useState(false)
     const[totalPrice,setTotalPrice]=React.useState(150)
+    const[amenities,setAmenities]=React.useState([])
     
-    console.log("checkediTme",checkedItems)
+    React.useEffect(() => {
+      console.log("params-->",params,typeof(diff),diff)
+      const totalPrice=parseInt(params.roomPrice)*parseInt(room)*diff;
+      console.log("totalprice-->",totalPrice)
+      setTotalPrice(totalPrice)
+
+      const place=localStorage.getItem("location")|| "";
+      
+    const url = `http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getAmenities?hotelId=${1}`;
+    axios.get(url, {headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json'
+
+      
+    }}).then(res=>{
+       console.log("response--->",res)
+       if(res && res.data && res.data.length>0){
+         const arr=[]
+          //  console.log("res.data",res.data)
+          const amenities=res.data;
+          amenities.forEach((ele,idx)=>{
+            arr.push({
+              name:ele,
+              id:idx+1
+
+            })
+
+          })
+
+          
+          setAmenities(arr)
+
+       }
+   }).catch(err=>{
+       console.log("Err-->",err)
+   })
+  
+  }, []);
     const rewardPts=50;
-    const amenties=[{
-      name:"Jacuzzi",
-      price:133,
-      id:1
-    },
-    {
-      name:"All meal",
-      price:133,
-      id:2
-    }]
-    console.log("checkedItems.includes(ele.id)",checkedItems.includes(1))
+    const start=moment(startDate,'DD/MM/YYYY').format("YYYY-MM-DD");
+    const end=moment(endDate,"DD/MM/YYYY").format("YYYY-MM-DD");
+    console.log("start-->",end)
+    const imageLink=localStorage.getItem("hotelImg");
+    console.log("imagelink-->",imageLink)
+    const diff=moment(end).diff(moment(start),'days');
+  
+   
     
     
     return(
@@ -59,7 +99,7 @@ function   BookingDetails(props){
         <div style={{backgroundColor:"whitesmoke",borderRadius:10}}>
             <div style={{height:350,display:'flex',flexDirection:'row'}}>
                 <div style={{width:'70%'}}>
-                <img src={background} style={{height:'100%',width:'100%',borderRadius:5}}/>
+                <img src={link} style={{height:'100%',width:'100%',borderRadius:5}}/>
                 </div>
                 <div style={{width:'40%',display:"flex",flexDirection:"column",paddingTop:15,paddingLeft:20}}>
                 <h5 style={{fontStyle:"unset",fontSize:27,color:"#830051",fontFamily:"sans-serif",fontWeight:"bold"}}>{"Marriot"}</h5>
@@ -68,7 +108,7 @@ function   BookingDetails(props){
 
                     <div style={{flexDirection:"row",display:"flex",backgroundColor:"whitesmoke",height:40}}>
                         <p style={{fontSize:18,fontWeight:'bold'}}>Room Type : </p>
-                        <p style={{fontSize:18}}>{" "+params.name}</p>
+                        <p style={{fontSize:18}}>{" "+params.roomType}</p>
                         
 
                     </div>
@@ -107,25 +147,26 @@ function   BookingDetails(props){
 
                 </div>
                 <div>
-                  {amenties.map(ele=>{
+                  {amenities.length>0? amenities.map(ele=>{
                     return(
                       <label style={{marginLeft:10}}>
+                        
         <input
           type="checkbox"
-          checked={checkedItems.includes(ele.id)}
+          checked={checkedItems.includes(ele.name)}
           //onChange={handleChange}
           onChange={()=>{
             //setMealsChecked(!isMealsChecked)
             //setBreakfastChecked(!isBreakfastChecked)
            
             var arr=[...checkedItems]
-            if(arr.includes(ele.id)){
-              const idx=  arr.indexOf(ele.id)
+            if(arr.includes(ele.name)){
+              const idx=  arr.indexOf(ele.name)
               arr.splice(idx,1)
             }
             else{
               console.log("Else-->")
-            arr.push(ele.id)
+            arr.push(ele.name)
             }
            
             
@@ -135,116 +176,40 @@ function   BookingDetails(props){
             
           }}
         />
-       {ele.name}
+        {ele.name}
+       
       </label>
 
                     )
-                  })}
+                  }):null}
                  
-                {/* <label style={{marginLeft:10}}>
-        <input
-          type="checkbox"
-          checked={isBreakfastChecked}
-          //onChange={handleChange}
-          onChange={()=>{
-            //setMealsChecked(!isMealsChecked)
-            setBreakfastChecked(!isBreakfastChecked)
-           
-            var arr=checkedItems
-            if(arr.includes("breakfast")){
-              const idx=  arr.indexOf("breakfast")
-              arr.splice(idx,1)
-            }
-            else{
-            arr.push("breakfast")
-            }
+                
+      <button 
+      onClick={()=>{
+        var string=''
+        checkedItems.forEach((ele,idx)=>{
+          if(idx!=checkedItems.length-1){
+          string=string+ele+","
+          }
+          else{
+            string=string+ele
+          }
+          
+        })
+        console.log("string-->",string)
 
-            setCheckedItems(arr)
-            
-          }}
-        />
-        Continental Breakfast
-      </label>
-      <label style={{marginLeft:10}}>
-        <input
-          type="checkbox"
-          checked={isFitnessChecked}
-          //onChange={handleChange}
-          onChange={()=>{
-            //setMealsChecked(!isMealsChecked)
-            var arr=checkedItems
-            setFitnessChecked(!isFitnessChecked)
-            if(arr.includes("fitness")){
-                const idx=  arr.indexOf("fitness")
-                arr.splice(idx,1)
-              }
-              else{
-              arr.push("fitness")
-              }
-           
-          }}
-        />
-        Fitness Room
-      </label>
-      <label style={{marginLeft:10}}>
-        <input
-          type="checkbox"
-          checked={isSwimmingPoolChecked}
-          //onChange={handleChange}
-          onChange={()=>{
-            var arr=checkedItems
-            //setMealsChecked(!isMealsChecked)
-            setSwimmingPoolChecked(!isSwimmingPoolChecked)
-            if(arr.includes("swimming")){
-                const idx=  arr.indexOf("swimming")
-                arr.splice(idx,1)
-              }
-              else{
-              arr.push("swimming")
-              }
-          }}
-        />
-        Swimming Pool
-      </label>
-      <label style={{marginLeft:10}}>
-        <input
-          type="checkbox"
-          checked={isParkingChecked}
-          onChange={()=>{
-            setParkingChecked(!isParkingChecked)
-            var arr=checkedItems
-            if(arr.includes("parking")){
-                const idx=  arr.indexOf("parking")
-                arr.splice(idx,1)
-              }
-              else{
-              arr.push("parking")
-              }
-          }}
-          //onChange={handleChange}
-        />
-        Daily Parking
-      </label>
-      <label style={{marginLeft:10}}>
-        <input
-          type="checkbox"
-          checked={isMealsChecked}
-          onChange={()=>{
-              
-            setMealsChecked(!isMealsChecked)
-             var arr=checkedItems
-             if(arr.includes("meals")){
-                const idx=  arr.indexOf("meals")
-                arr.splice(idx,1)
-              }
-              else{
-              arr.push("meals")
-              }
-          }}
-        />
-        All meals
-      </label> */}
-      <button style={{marginLeft:'5%'}} type="button" class="btn btn-primary">Apply</button>
+      const url=`http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getAmenitiesPrice?hotelId=1&roomId=1&fromDate=${start}&toDate=${end}&amenities=${string}`
+      console.log("url-->",url)
+      axios.get(url).then(Res=>{
+        console.log("price",Res)
+        if(Res && Res.data){
+          setTotalPrice(Res.data*parseInt(room))
+        }
+      }).catch(err=>{
+        console.log("Err price",err)
+      })
+      }}
+      style={{marginLeft:'5%'}} type="button" class="btn btn-primary">Apply</button>
 
                 </div>
                
