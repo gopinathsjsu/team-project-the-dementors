@@ -2,14 +2,16 @@ package Prestige.HotelBooking.services;
 
 import Prestige.HotelBooking.dao.*;
 import Prestige.HotelBooking.entities.*;
+import Prestige.HotelBooking.modals.BookingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.FalseCondition;
 import org.springframework.stereotype.Service;
 
-import Prestige.HotelBooking.modals.BookingDTO;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class BookingServiceImpl {
@@ -59,7 +61,7 @@ public class BookingServiceImpl {
 			reward.setCustomer(customer);
 			rewardRepository.save(reward);
 		}
-		return bookingRepository.save(booking);
+		return bookingRepository.saveAndFlush(booking);
 	}
 	
 	public void deleteBooking(long bookingId) {
@@ -79,22 +81,22 @@ public class BookingServiceImpl {
 			booking.setHotel(hotel);
 			booking.setAmenities(bookingDTO.getAmenities());
 			booking.setRoom(room);
+			booking.setCustomer(customer);
 			roomRepository.updateNumberOfAvailableRooms((room.getNumberOfAvailableRooms()-bookingDTO.getNumOfRooms()),bookingDTO.getHotelId(), bookingDTO.getRoomId());
 			if ((room.getNumberOfAvailableRooms()-bookingDTO.getNumOfRooms()<=0)){
 				roomRepository.updateIsAvailable(false, bookingDTO.getHotelId(), bookingDTO.getRoomId());
 			}
-			return bookingRepository.save(booking);
+			return bookingRepository.saveAndFlush(booking);
 		}
 		return booking;
 
 	}
 
 	public int getDifferenceDays(Date d1, Date d2) {
-	    int daysdiff = 0;
-	    long diff = d2.getTime() - d1.getTime();
-	    long diffDays = diff / (24 * 60 * 60 * 1000);
-	    daysdiff = (int) diffDays;
-	    return daysdiff;
+		long diffInMillies = Math.abs(d2.getTime() - d1.getTime());
+		long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+		int i = (int)diff;
+	    return i;
 	}
 	
 	public List<Booking> getAllHotelBooking(long hotelId){
@@ -102,8 +104,8 @@ public class BookingServiceImpl {
 		return bookings;
 	}
 
-	public List<Booking> getAllBookingsOfRoom(long hotelId, long roomId){
-		List<Booking> bookings = bookingRepository.findAllBookingsOfRoom(hotelId, roomId);
-		return bookings;
+	public List<Booking> getAllBookingsOfRoom(long hotelId, long roomId) throws SQLException {
+		ResultSet rs = bookingRepository.findAllBookingsOfRoom(hotelId, roomId);
+		return (List<Booking>) rs;
 	}
 }

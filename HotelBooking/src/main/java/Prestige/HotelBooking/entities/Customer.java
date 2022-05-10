@@ -52,7 +52,7 @@ public class Customer {
 	@OneToMany(mappedBy="customer")
 	private List<CustomerRewards> customerRewards;
 	
-	@OneToMany(mappedBy="customer",cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy="customer")
 	private List<Booking> booking;
 	
 	public List<CustomerRewards> getCustomerRewards() {

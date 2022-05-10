@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import Prestige.HotelBooking.entities.Booking;
 import Prestige.HotelBooking.entities.Customer;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 
@@ -32,6 +33,6 @@ public interface BookingRepository extends JpaRepository<Booking, Integer> {
 	List<Booking> findAllBookings(@Param("hotelId") long hotelId);
 
 	@Query(value = "Select * from booking WHERE hotel_id=:hotelId AND room_id=:roomId", nativeQuery = true)
-	List<Booking> findAllBookingsOfRoom(@Param("hotelId") long hotelId, @Param("roomId") long roomId);
+	ResultSet findAllBookingsOfRoom(@Param("hotelId") long hotelId, @Param("roomId") long roomId);
 
 }

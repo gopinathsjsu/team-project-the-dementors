@@ -1,6 +1,7 @@
 package Prestige.HotelBooking.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class Hotel {
     private String image;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy="hotel",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Booking> booking;
     
     public List<Booking> getBooking() {

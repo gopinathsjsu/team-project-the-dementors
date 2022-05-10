@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,7 +22,7 @@ public class RoomController {
     @CrossOrigin(origins = "*")
     @GetMapping("/checkRoomAvailability")
     @ResponseBody
-    public ResponseEntity<?> checkRoomAvailability(@RequestParam(name = "fromDate") String fDate, @RequestParam(name = "toDate") String tDate,@RequestParam(name = "hotelId") String hotelId,@RequestParam(name = "roomId") String roomId) throws ParseException {
+    public ResponseEntity<?> checkRoomAvailability(@RequestParam(name = "fromDate") String fDate, @RequestParam(name = "toDate") String tDate,@RequestParam(name = "hotelId") String hotelId,@RequestParam(name = "roomId") String roomId) throws ParseException, SQLException {
         List<Booking> bookings = bookingService.getAllBookingsOfRoom(Long.parseLong(hotelId),Long.parseLong(roomId));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
         Date fromDate = formatter.parse(fDate);

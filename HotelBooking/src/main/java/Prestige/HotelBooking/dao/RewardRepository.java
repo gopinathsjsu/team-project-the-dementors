@@ -22,10 +22,10 @@ public interface RewardRepository extends JpaRepository<CustomerRewards, Integer
 	@Query(value = "Select * from customer_rewards WHERE cust_id=:customerRewardsId", nativeQuery = true)
 	CustomerRewards getCustomerRewards(@Param("customerRewardsId") long customerRewardsId);
 
-
+	@Modifying
 	@Transactional
 	@Query(value = "Update customer_rewards SET reward=:rewards WHERE customer_rewards_id=:customerRewardsId", nativeQuery = true)
-	CustomerRewards updateCustomerRewards(@Param("rewards") double rewards, @Param("customerRewardsId") long customerRewardsId);
+	void updateCustomerRewards(@Param("rewards") double rewards, @Param("customerRewardsId") long customerRewardsId);
 
 
 }
