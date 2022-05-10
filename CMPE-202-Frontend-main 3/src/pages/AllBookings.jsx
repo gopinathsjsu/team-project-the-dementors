@@ -4,9 +4,12 @@ import NavBarComponent from "../components/NavBar";
 import moment from 'moment';
 import ReadOnlyRow from "../components/ReadOnlyRow";
 import EditableRow from "../components/EditableRow";
+import axios from "axios";
 
 function AllBookings(){
 let data = JSON.parse(localStorage.getItem('allbookings'));
+let cId = localStorage.getItem("custId");
+console.log("Cust ID:",cId);
 console.log("1233456567",data);
 const [book,setBooking]= useState(data);
 const [editbookingId,setEditbookingId] = useState(null);
@@ -38,52 +41,33 @@ const handleEditFormChange = (event)=>{
 const handleEditFormSubmit = (event)=>{
     event.preventDefault();
     const editedRow = {
-        bookingFromDate : (moment(editFormData.bookingFromDate).format('YYYY-MM-DD')) +  "T00:00:00.000+00:00",
-        bookingToDate: (moment(editFormData.bookingToDate).format('YYYY-MM-DD')) +  "T00:00:00.000+00:00"
+        bookingFromDate : (moment(editFormData.bookingFromDate).format('YYYY-MM-DD')) +  "T01:00:00.000+00:00",
+        bookingToDate: (moment(editFormData.bookingToDate).format('YYYY-MM-DD')) +  "T01:00:00.000+00:00"
+        // bookingFromDate : editFormData.bookingFromDate,
+        // bookingToDate : editFormData.bookingToDate
     }
     const newUpdatedRow = [...book];
-    // let customerId = 0, hotelId = 0,amenities="",roomId=0,price=0,numOfRooms=0;
     for(let i =0;i< newUpdatedRow.length;i++){
         if(newUpdatedRow[i].bookingId===editbookingId){
             newUpdatedRow[i].bookingFromDate = editedRow.bookingFromDate;
             newUpdatedRow[i].bookingToDate = editedRow.bookingToDate;
-            // newUpdatedRow[i].amenities = 
+            console.log("XXXXXX", newUpdatedRow[i].hotel.hotelId,newUpdatedRow[i].room.roomId, cId, moment(editedRow.bookingFromDate).format('DD-MM-YYYY'), moment(editedRow.bookingToDate).format('DD-MM-YYYY'));
+            const  body = {
+                "bookingFromDate": moment(newUpdatedRow[i].bookingFromDate).format('DD-MM-YYYY'),
+                "bookingToDate": moment(newUpdatedRow[i].bookingToDate).format('DD-MM-YYYY'),
+                "customerId": parseInt(cId),
+                "hotelId": parseInt(newUpdatedRow[i].hotel.hotelId),
+                "roomId": parseInt(newUpdatedRow[i].room.roomId),
+                "amenities": newUpdatedRow[i].amenities
+            }
+            axios.put(`http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/updateBooking/${newUpdatedRow[i].bookingId}`, body)
+            .then(() => console.log("Success"))
+            .catch(console.log("ERRR"));
         }
     }
     console.log(newUpdatedRow);
     setBooking(newUpdatedRow);
     setEditbookingId(null);
-    // React.useEffect(() => {
-    //     const requestOptions = {
-    //                 method: 'PUT',
-    //                 headers: { 'Content-Type': 'application/json' },
-    //                 body: JSON.stringify({
-    //                     "bookingFromDate": newUpdatedRow[i],
-    //                     "bookingToDate": "13-05-2022",
-    //                     "customerId": 2,
-    //                     "hotelId": 1,
-    //                     "amenities": "Continental Breakfast,Jacuzzi",
-    //                     "roomId": 3,
-    //                     "price": 310,
-    //                     "numOfRooms": 1
-    //                 })
-    //             };
-    //             fetch('http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/updateBooking/10', requestOptions)
-    //         .then(response => response.json())
-    //         .then(data => setPostId(data.id));
-    // })
-    //     // POST request using fetch inside useEffect React hook
-    //     const requestOptions = {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({ title: 'React Hooks POST Request Example' })
-    //     };
-    //     fetch('https://reqres.in/api/posts', requestOptions)
-    //         .then(response => response.json())
-    //         .then(data => setPostId(data.id));
-    
-    // // empty dependency array means this effect will only run once (like componentDidMount in classes)
-    // }, []);
 }
 
 const handleCancelClick = (event) =>{
@@ -96,6 +80,10 @@ const handleDeleteClick = (event,bookingId) =>{
     const delRow = [...book];
     for(let i =0;i<=delRow.length;i++){
         if(delRow[i].bookingId===bookingId){
+            console.log("ID: ",bookingId);
+            axios.delete(`http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/deleteBooking/${delRow[i].bookingId}`)
+            .then(() => console.log("Sucess"))
+            .catch(console.log("ERRR"));
             delRow.splice(i,1);
             break;
         }

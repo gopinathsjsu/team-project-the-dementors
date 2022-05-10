@@ -8,8 +8,8 @@ const ReadOnlyRow = ({b, handleEditClick, handleDeleteClick}) => {
             {/* <td>{console.log(b.room.roomNo)}</td> */}
             <td>{b.hotel.hotelName}</td>
             <td>{b.room.roomNo}</td>
-            <td>{moment(b.bookingFromDate).format('MM/DD/yy')}</td>
-            <td >{moment(b.bookingToDate).format('MM/DD/yy')}</td>
+            <td>{moment(b.bookingFromDate).format('YYYY-MM-DD')}</td>
+            <td >{moment(b.bookingToDate).format('YYYY-MM-DD')}</td>
             <td >{b.price}</td>
             <td >
                 <button type="button" onClick={(event)=>handleEditClick(event,b)}>Edit</button>

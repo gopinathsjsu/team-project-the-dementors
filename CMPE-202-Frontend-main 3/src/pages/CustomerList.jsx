@@ -7,10 +7,10 @@ import data from "./allcustomer-data.json";
 function CustomerList(){
   const [allcustomers,setCustomer]= useState([]);
   let hotel = localStorage.getItem("hotelId")
+  console.log("1st booking", allcustomers)
   console.log("HOTEL: ",hotel)
   React.useEffect(() => {
-  // const url = 'http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getHotelBooking?hotelId='+{hotel};
-  const url =  `http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getHotelBooking?hotelId=${hotel}`;
+  const url =  `http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getHotelBooking?hotelId=${localStorage.getItem("hotelId")}`;
   axios.get(url, {headers: {
     'Access-Control-Allow-Origin': '*',
     'Content-Type': 'application/json' 
@@ -33,31 +33,28 @@ function CustomerList(){
                   <thead>
                     <tr>
                       <th>Customer Name</th>
-                      <th>Customer Room</th>
                       <th>Check in Date</th>
                       <th>Check out Date</th>
                       <th>Price</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>{console.log("20000000",allcustomers[0].bookingId)}</td>
-                      <td>{moment(allcustomers[0].bookingFromDate).format('MM/DD/yy')}</td>
-                      <td>{moment(allcustomers[0].bookingToDate).format('MM/DD/yy')}</td>
-                      <td>{console.log("20000000",allcustomers[0].price)}</td>
-                    </tr>
-                      {/* {
-                      allcustomers.map(function(c){
-                        return (
-                          <tr>
-                            <td>{console.log("In table: ", c.bookingId)}</td> 
-                             <td>{c.room.roomNo}</td>
-                            <td>{moment(c.bookingFromDate).format('MM/DD/yy')}</td>
-                            <td>{moment(c.bookingToDate).format('MM/DD/yy')}</td>
-                            <td>{c.price}</td>  
-                            </tr> 
-                        );
-                         })} */}
+                    
+                  {allcustomers && allcustomers.length>0?allcustomers.map(ele=>{
+                      if(typeof(ele)=="object"){
+                     return(
+                       <tr>
+                         <td>{ele.customer && ele.customer.firstName? ele.customer.firstName:""}</td>
+                         <td>{moment(ele.bookingFromDate).format('DD-MM-YYYY')}</td>
+                         <td>{moment(ele.bookingToDate).format('DD-MM-YYYY')}</td>
+                         <td>{ele.price}</td>
+                       </tr>
+                     )
+                      }
+                      else{
+                        return null;
+                      }
+                    }):null}
                   </tbody>
                 </table>
                </div>

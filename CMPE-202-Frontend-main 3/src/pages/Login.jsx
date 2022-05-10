@@ -104,7 +104,6 @@ _changeState(){
                var hotelId = 0;
                var allbookings = [];
                var rewardId;
-              
                if(res.data.customer && res.data.customer.firstName && res.data.userRole.toLowerCase()=="customer"){
                 username = res.data.customer.firstName;
                 lastName = res.data.customer.lastName ?res.data.customer.lastName:"" ;
@@ -115,17 +114,15 @@ _changeState(){
                 localStorage.setItem("rewards",rewards);
                 localStorage.setItem("rewardId",rewardId);
             }
-               if(res.data.customer && res.data.customer.firstName  &&  res.data.userRole.toLowerCase()!="customer"){
+               if(res.data.customer &&  res.data.userRole.toLowerCase()!="customer"){
                 username = res.data.employee ? res.data.employee.employeeId:"";
                 hotelId = res.data.employee ?res.data.employee.hotelId:1;
+                email = res.data.employee ?res.data.employee.employeeEmail:"";
                 }
             
                if(res.data.customer && res.data.customer.customerId){
                 customerId=res.data.customer.customerId
             }
-               
-           
-               //localStorage.setItem("username",username)
                localStorage.setItem("custId",customerId)
                localStorage.setItem("username",username)
                localStorage.setItem("lastName",lastName)
