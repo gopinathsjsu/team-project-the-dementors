@@ -3,9 +3,10 @@ import React, { Component,useState } from "react";
 import background from "../assets/searchBg.jpeg";
 import NavBarComponent from "../components/NavBar";
 import data from "./mock-data.json";
-import axios from 'axios';
+import { useHistory } from "react-router-dom";
 
 function Profile(){
+    let history = useHistory();
     const [profile,setProfile]= useState(data);
     const fname=localStorage.getItem("username");
     const lname=localStorage.getItem("lastName");
@@ -21,11 +22,16 @@ function Profile(){
                 <br/>
                 Last Name: {lname}
                 <br/>
-                Reward points: {rewards}
+                Reward points: {parseInt(rewards)}
                 <br/>
                 Email: {email}
                 <br/>
             </div>
+            <button class="btn btn-info" onClick={()=>{history.push('/search')}} style={{width:'40%',height:40,color:"white",borderRadius:7,marginLeft:"375px"}}>
+                        
+                        Search
+                   
+            </button>
             <div style={{justifyContent:'center',alignItems:"center",display:"flex"}}>
             </div>
         </div>

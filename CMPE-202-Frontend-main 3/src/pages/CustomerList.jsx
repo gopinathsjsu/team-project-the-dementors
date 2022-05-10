@@ -6,9 +6,9 @@ import data from "./allcustomer-data.json";
 
 function CustomerList(){
   const [allcustomers,setCustomer]= useState([]);
-  let hotel = localStorage.getItem("hotelId")
-  console.log("1st booking", allcustomers)
-  console.log("HOTEL: ",hotel)
+  // let hotel = localStorage.getItem("hotelId")
+  // console.log("1st booking", allcustomers)
+  // console.log("HOTEL: ",hotel)
   React.useEffect(() => {
   const url =  `http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/getHotelBooking?hotelId=${localStorage.getItem("hotelId")}`;
   axios.get(url, {headers: {

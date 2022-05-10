@@ -22,6 +22,7 @@ function   BookingDetails(props){
     const reward=localStorage.getItem("rewards")||0;
     const rewardId=localStorage.getItem("rewardId")||0
     const custId=localStorage.getItem("custId")
+   
     
    
     const guests=parseInt(adult)+parseInt(children);
@@ -30,7 +31,8 @@ function   BookingDetails(props){
     const hotelId=location.state.state.hotelId
     
     const link=localStorage.getItem("hotelImg");
-    console.log("params-->",params,hotelId,localStorage.getItem("custId"),typeof(hotelId))
+    console.log("params-->",params,hotelId)
+    
   
     const[isBreakfastChecked,setBreakfastChecked]=React.useState(false);
     const[isFitnessChecked,setFitnessChecked]=React.useState(false);
@@ -93,6 +95,10 @@ function   BookingDetails(props){
     const history=useHistory()
     const sd=moment(start,"YYYY-MM-DD").format("DD-MM-YYYY")
     const ed=moment(end,"YYYY-MM-DD").format("DD-MM-YYYY")
+    var hotelName=params.hotel && params.hotel.hotelName?params.hotel.hotelName:localStorage.getItem("hotel_name")
+    var address=params.hotel && params.hotel.hotelStreet? params.hotel.hotelStreet:""
+    console.log("HOTELNAME",hotelName)
+   
 
    
   
@@ -115,9 +121,9 @@ function   BookingDetails(props){
                 <img src={link} style={{height:'100%',width:'100%',borderRadius:5}}/>
                 </div>
                 <div style={{width:'40%',display:"flex",flexDirection:"column",paddingTop:15,paddingLeft:20}}>
-                <h5 style={{fontStyle:"unset",fontSize:27,color:"#830051",fontFamily:"sans-serif",fontWeight:"bold"}}>{"Marriot"}</h5>
+                <p style={{fontStyle:"unset",fontSize:27,color:"#830051",fontFamily:"sans-serif",fontWeight:"bold"}}>{hotelName}</p>
 
-                <h5 style={{fontStyle:"unset",fontSize:14,color:"#d96932",fontFamily:"sans-serif",fontWeight:"bold"}}>{"211 S. First Street San Jose, California 95113"}</h5>
+                <h5 style={{fontStyle:"unset",fontSize:14,color:"#d96932",fontFamily:"sans-serif",fontWeight:"bold"}}>{address + " "+","+place}</h5>
 
                     <div style={{flexDirection:"row",display:"flex",backgroundColor:"whitesmoke",height:40}}>
                         <p style={{fontSize:18,fontWeight:'bold'}}>Room Type : </p>
@@ -245,10 +251,17 @@ function   BookingDetails(props){
           onChange={()=>{
            setRewardsChecked(!isRewardsChecked)
            if(!isRewardsChecked){
-           setTotalPrice(totalPrice-rewardPts)
+             if(totalPrice>parseInt(reward)){
+              setTotalPrice(totalPrice-parseInt(reward))
+
+             }
+             else{
+              setTotalPrice(parseInt(reward)-totalPrice)
+             }
+        
            }
            else{
-             setTotalPrice(totalPrice+rewardPts)
+             setTotalPrice(totalPrice+ parseInt(reward))
            }
            
           }}
@@ -282,28 +295,75 @@ function   BookingDetails(props){
                
             }
             console.log("body-->",body)
+            //var urlrewards=`http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/updateCustomerReward/${rewardId}?rewards=100&id=${rewardId}`;
+            // const body={
+            //   "rewards":reward,
+            //   "customer_rewardId":rewardId
+              
+            // }
+            var rewardCalculated;
+            if(totalPrice>parseInt(reward)){
+              rewardCalculated=0;
+            }
+            else{
+             // rewardCalculated=parseInt(reward)-totalPrice;
+             rewardCalculated=0
+            }
+            if(isRewardsChecked){
+              var urlrewards=`http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/updateCustomerReward/${rewardId}?rewards=${rewardCalculated}&id=${rewardId}`;
+              axios.delete(urlrewards).then(res=>{
+                console.log("res from delete-->",res)
+                axios.post(url,body).then(response=>{
+              console.log("Response from post-->",response);
+              history.push("/confirm",{total:totalPrice})
+
+
+              }).catch(error=>{
+                console.log("Error in booking")
+                alert("Coudn't place booking.Please try again!!")
+              })
+              })
+              
+              .catch(err=>{
+                console.log("Err in booking==>",err)
+                axios.post(url,body).then(response=>{
+                  console.log("Response from post-->",response);
+                  history.push("/confirm",{total:totalPrice})
+    
+                  }).catch(error=>{
+                    console.log("Error in booking")
+                    alert("Coudn't place booking.Please try again!!")
+                  })
+                
+              })
+
+            
+          }
+          else{
             axios.post(url,body).then(response=>{
               console.log("Response from post-->",response);
-              if(isRewardsChecked){
-                // var url=`http://hotelbookingaws-env.eba-mkq2bqg6.us-east-1.elasticbeanstalk.com/updateCustomerReward/${rewardId}`;
-                // const body={
-                //   "rewards":reward,
-                //   "customer_rewardId":rewardId
-                  
-                // }
-                // axios.post(url,body).then(res=>{
-                //   console.log("res-->",res)
-                // }).catch(err=>{
-                //   console.log("Err==>",err)
-                // })
+              history.push("/confirm",{total:totalPrice})
+
+              }).catch(error=>{
+                console.log("Error in booking")
+                alert("Coudn't place booking.Please try again!!")
+              })
+
+          }
+
+
+            
+   
+         
+             
                 
-              }
-              //history.push("/confirm")
+                
+               
+                
               
-            }).catch(err=>{
-              console.log("err",err)
-              alert("Please try again!!!")
-            })
+             
+           
+            
 
             }}
             style={{fontWeight:"bold"}} type="button" class="btn btn-warning">Checkout</button>

@@ -89,11 +89,17 @@ var hotelId;
                             <img src={ele.image} style={{height:'100%',width:'100%',borderRadius:5}}/>
                             </div>
                             <div style={{display:'flex',flexDirection:'column',paddingLeft:'10%' ,justifyContent:'center',width:'60%'}}>
-                                {ele.roomType}
+                                <div style={{flexDirection:"column",display:"flex"}}>
+                                    <h3>{ele.roomType}</h3>
+
+   
+                               <h5>{ele.description?ele.description:""}</h5> 
+                                </div>
                                
                                 
                                 
                                 </div>
+                              
                                 <div style={{flexDirection:'column',display:'flex',width:'20%',justifyContent:'center',alignItems:"center"}}> 
                                     {/* <h3>From</h3> */}
                                     <div style={{fontWeight:"bold",fontSize:20}}>
@@ -107,7 +113,8 @@ var hotelId;
                                     type="button"
                                     class="btn btn-warning"
                                     onClick={()=>{
-                                        history.push("/bookingdetails",{state:{detail:ele,hotelId:hotelId}})
+                                        console.log("ele-->",ele.hotel)
+                                       history.push("/bookingdetails",{state:{detail:ele,hotelId:hotelId}})
                                         //history.push("/hotellist", {state: { detail: JSON.stringify(place) }})
                                     }}
                                     style={{}}>

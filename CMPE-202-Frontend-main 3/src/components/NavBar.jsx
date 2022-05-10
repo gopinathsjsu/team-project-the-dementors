@@ -25,7 +25,9 @@ const NavBarComponent=()=>{
                         Manage Trips
                     </div>
 
-                <div onClick={()=>{history.push("/")}} style={{display:"flex",flexDirection:"row",fontFamily:"serif",fontSize:14,fontWeight:"bold",alignItems:"center"}}>
+                <div onClick={()=>{
+                    localStorage.clear()
+                    history.push("/")}} style={{display:"flex",flexDirection:"row",fontFamily:"serif",fontSize:14,fontWeight:"bold",alignItems:"center"}}>
                         <FaSignOutAlt/>
                         SignOut
                     </div>

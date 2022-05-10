@@ -1,6 +1,5 @@
 import React, { Component,useState,Fragment } from "react";
 import NavBarComponent from "../components/NavBar";
-// import data from "./allbookings-data.json";
 import moment from 'moment';
 import ReadOnlyRow from "../components/ReadOnlyRow";
 import EditableRow from "../components/EditableRow";
@@ -9,8 +8,6 @@ import axios from "axios";
 function AllBookings(){
 let data = JSON.parse(localStorage.getItem('allbookings'));
 let cId = localStorage.getItem("custId");
-console.log("Cust ID:",cId);
-console.log("1233456567",data);
 const [book,setBooking]= useState(data);
 const [editbookingId,setEditbookingId] = useState(null);
 const [editFormData, seteditFormData] = useState({
@@ -43,15 +40,12 @@ const handleEditFormSubmit = (event)=>{
     const editedRow = {
         bookingFromDate : (moment(editFormData.bookingFromDate).format('YYYY-MM-DD')) +  "T01:00:00.000+00:00",
         bookingToDate: (moment(editFormData.bookingToDate).format('YYYY-MM-DD')) +  "T01:00:00.000+00:00"
-        // bookingFromDate : editFormData.bookingFromDate,
-        // bookingToDate : editFormData.bookingToDate
     }
     const newUpdatedRow = [...book];
     for(let i =0;i< newUpdatedRow.length;i++){
         if(newUpdatedRow[i].bookingId===editbookingId){
             newUpdatedRow[i].bookingFromDate = editedRow.bookingFromDate;
             newUpdatedRow[i].bookingToDate = editedRow.bookingToDate;
-            console.log("XXXXXX", newUpdatedRow[i].hotel.hotelId,newUpdatedRow[i].room.roomId, cId, moment(editedRow.bookingFromDate).format('DD-MM-YYYY'), moment(editedRow.bookingToDate).format('DD-MM-YYYY'));
             const  body = {
                 "bookingFromDate": moment(newUpdatedRow[i].bookingFromDate).format('DD-MM-YYYY'),
                 "bookingToDate": moment(newUpdatedRow[i].bookingToDate).format('DD-MM-YYYY'),
