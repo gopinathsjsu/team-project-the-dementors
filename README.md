@@ -1,5 +1,5 @@
 # Team Dementors : 
-#### [Github](https://github.com/gopinathsjsu/team-project-the-dementors/) | [Sprint Sheet](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/Sprint%20Sheet%20Team%20Dementors.xlsx) | [Project Journal](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/CMPE-202%20Sprint%20Team%20Dementors.xlsx)
+#### [Github](https://github.com/gopinathsjsu/team-project-the-dementors/) | [Sprint Sheet](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/Sprint%20Sheet%20Team%20Dementors.xlsx) | [Project Journal](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/CMPE-202%20Sprint%20Team%20Dementors.xlsx) | [Project Board](https://github.com/gopinathsjsu/team-project-the-dementors/projects/1)
 ### Team Members:    
 1. Ashika Anand Babu   
 2. Ramya Mahesh   
@@ -69,4 +69,17 @@
 12. Sign out
 13. If you are an employee, login and view all the bookings of an hotel as: <img width="1440" alt="image" src="https://user-images.githubusercontent.com/61357783/167718994-04a312b0-a12a-47fc-8814-820ee69d1813.png">
 
+
+
+### Implemented the Backend using: Model View Controller
+
+MVC (Model-View-Controller) is a pattern in software design commonly used to implement user interfaces, data, and controlling logic. It emphasizes a separation between the software's business logic and display. This "separation of concerns" provides for a better division of labor and improved maintenance. Some other design patterns are based on MVC, such as MVVM (Model-View-Viewmodel), MVP (Model-View-Presenter), and MVW (Model-View-Whatever).
+
+The three parts of the MVC software-design pattern can be described as follows:
+
+- Model: Manages data and business logic.
+- View: Handles layout and display.
+- Controller: Routes commands to the model and view parts.
+
+![model-view-controller-light-blue](https://user-images.githubusercontent.com/90420965/167730264-4d502dd5-1b28-4150-bc79-ea554c05c797.png)
 
