@@ -27,7 +27,7 @@ public class Hotel {
     private float startingPrice;
     private String image;
 
-    @OneToMany(mappedBy="hotel")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="hotel",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Booking> booking;
     
     public List<Booking> getBooking() {

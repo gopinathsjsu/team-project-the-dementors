@@ -29,9 +29,6 @@ public class Amenities {
     @JoinColumn(name="hotel_id", referencedColumnName = "hotelId")
     private Hotel hotel;
 
-    @ManyToOne
-    @JoinColumn(name="room_id", referencedColumnName = "roomId")
-    private Room room;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -119,13 +116,6 @@ public class Amenities {
         this.hotel = hotel;
     }
 
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
 
     public float getJacuzzi() {
         return jacuzzi;

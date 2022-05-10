@@ -59,8 +59,6 @@ public class BookingServiceImpl {
 			reward.setCustomer(customer);
 			rewardRepository.save(reward);
 		}
-
-		System.out.println("**** Booking DTO"+ booking.getRoom());
 		return bookingRepository.save(booking);
 	}
 	
@@ -94,7 +92,6 @@ public class BookingServiceImpl {
 	public int getDifferenceDays(Date d1, Date d2) {
 	    int daysdiff = 0;
 	    long diff = d2.getTime() - d1.getTime();
-	    System.out.println("dates "+ d2.getTime() + "d1 " + d1.getTime());
 	    long diffDays = diff / (24 * 60 * 60 * 1000);
 	    daysdiff = (int) diffDays;
 	    return daysdiff;
