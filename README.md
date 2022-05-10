@@ -1,6 +1,8 @@
 # Team Dementors : 
-Github: https://github.com/gopinathsjsu/team-project-the-dementors/
-
+#### [Github](https://github.com/gopinathsjsu/team-project-the-dementors/)
+#### [Sprint Sheet](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/CMPE-202%20Sprint%20Team%20Dementors.xlsx)
+#### [Project Journal](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/CMPE-202%20Sprint%20Team%20Dementors.xlsx)
+======
 ### Team Members:    
 1. Ashika Anand Babu   
 2. Ramya Mahesh   
@@ -34,3 +36,12 @@ Github: https://github.com/gopinathsjsu/team-project-the-dementors/
    4. Implementaion, Integration and testing of List of hotels screen
    5. Implementaion, Integration and testing of Hotel Details screen   
    6. Implementaion, Integration and testing of Booking Confirmation screen
+
+
+
+### XP values followed: 
+1.
+### Design Patterns:
+1. MVC
+
+### Project Flow:
