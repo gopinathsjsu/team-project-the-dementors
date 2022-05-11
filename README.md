@@ -22,6 +22,7 @@
 2. [Class Diagram](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/Class%20Diagram.png)
 3. [DB Design](https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/updated-database-design.pdf)
 4. [Wireframes](https://github.com/gopinathsjsu/team-project-the-dementors/tree/main/Wireframes)
+5. [Deployment Diagram] (https://github.com/gopinathsjsu/team-project-the-dementors/blob/main/Deployment.pdf)
 
 ### Team Member Contributions:
 #### 1. Anusha Gangasani:    
