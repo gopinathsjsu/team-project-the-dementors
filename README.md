@@ -61,10 +61,15 @@
 
 ### XP values followed: 
 1.Communication : Communicated openly on the expectations of each stories, dependencies and implementation methods. We used to meet once in a week - Mondays, to discuss the status, issues/blockers and what has been worked on till date. Prioritize the features which has more dependency. Highlight Blockers. 
+
 2. Feedback : Every feature was discussed on implementation details and pick the one which suits our project the best. Frequent PR reviews.
+
 3. Simplicity : Implemented only the features that has been asked for. Keep the Backend, UI and Database design simple.
+
 4. Sit together : Debug the issues together and fix it. Give the demo of the features implemented once a sprint.  
+
 5. Pair programming : Architecture design, DB Design, Wireframes and Deployment designs were discussed and finalised on Monday syncup calls.
+
 6. 2-weeks sprint/bi-weekly cycle: We followed two week sprint acitivity and developed the product in 4 sprints. 
 
 ### Project Flow:
