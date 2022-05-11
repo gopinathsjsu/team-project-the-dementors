@@ -60,8 +60,7 @@
 
 
 ### XP values followed: 
-1.Communication : Communicated openly on the expectations of each stories, dependencies and implementation methods. We used to meet once in a week - Mondays, to discuss the status, issues/blockers and what has been worked on till date. Prioritize the features which has more dependency. Highlight Blockers. 
-
+1. Communication : Communicated openly on the expectations of each stories, dependencies and implementation methods. We used to meet once in a week on  Mondays, to discuss the status, issues/blockers and what has been worked on till date. Prioritize the features which has more dependency. Highlight Blockers. 
 2. Feedback : Every feature was discussed on implementation details and pick the one which suits our project the best. Frequent PR reviews.
 
 3. Simplicity : Implemented only the features that has been asked for. Keep the Backend, UI and Database design simple.
