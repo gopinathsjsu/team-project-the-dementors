@@ -56,9 +56,6 @@
 4. Sit together
 5. Pair programming
 6. 2-weeks sprint/bi-weekly cycle
-     
-### Design Patterns:
-1. MVC
 
 ### Project Flow:
 1. Our web application starts at:
