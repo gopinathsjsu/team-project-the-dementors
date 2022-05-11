@@ -46,7 +46,8 @@
    4. Implementation, Integration and testing of dynamic pricing. 
    5. Deployment of backend service in AWS.
    6. Deployment of RDS and populating mock data. 
-   7. Bug Fixes.
+   7. UI Integration
+   8. Bug Fixes.
 #### 5. Shruthi Srinivasan:        
    1. Implementaion, Integration and testing of Login screen
    2. Implementaion, Integration and testing of Signup screen
