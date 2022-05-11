@@ -25,6 +25,14 @@
 
 ### Team Member Contributions:
 #### 1. Anusha Gangasani:    
+   1. Implementation, Integration and testing of user, login and registration api
+   2. Implementation, Integration and testing of saveBooking and updateBooking api.
+   3. Implementation, Integration and testing of saveCustomer, updateCustomer api.
+   4. Deployment of backend service in AWS.
+   5. Deployment of RDS and populating mock data. 
+   6. UI Integration
+   7. Bug Fixes.
+
 #### 2. Ashika Anand Babu:  
    1. Implementaion, Integration and testing of Cancel screen
    2. Implementaion, Integration and testing of Confirm screen
