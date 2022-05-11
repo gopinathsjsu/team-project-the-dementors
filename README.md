@@ -31,7 +31,14 @@
    3. Implementaion, Integration and testing of Bookings by a customer screen
    4. Implementaion, Integration and testing of Bookings for an hotel screen
    5. Implementaion, Integration and testing of Profile screen
-#### 4. Ramya Mahesh:    
+#### 4. Ramya Mahesh:  
+   1. Implementation, Integration and testing of getHotels, getHotelBooking and getRooms api
+   2. Implementation, Integration and testing of checkRoomAvailability api.
+   3. Implementation, Integration and testing of getAmenities, getAmenities api. 
+   4. Implementation, Integration and testing of dynamic pricing. 
+   5. Deployment of backend service in AWS.
+   6. Deployment of RDS and populating mock data. 
+   7. Bug Fixes.
 #### 5. Shruthi Srinivasan:        
    1. Implementaion, Integration and testing of Login screen
    2. Implementaion, Integration and testing of Signup screen
